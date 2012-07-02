@@ -1,5 +1,7 @@
 # ScavengerHunt plugin changelog summary
 
+##1.7.1
+
 ##1.7.0
 * Changed project to maven
 * Changed directory setup
@@ -20,5 +22,4 @@
 * Added time formatting, in XXhXXmXXs format
 * Riddle mode for the new modes was left out, will fix in 1.7.1
 * Source code will now be auto-formatted
-* Realocation of objective check methods no longer has an ETA
 * Code cleanup and small bug fixes

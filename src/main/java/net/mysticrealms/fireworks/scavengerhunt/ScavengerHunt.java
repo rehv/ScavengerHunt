@@ -33,7 +33,7 @@ public class ScavengerHunt extends JavaPlugin {
 	public Configuration config;
 	public int duration = 0;
 	public long start = 0, end = 0;
-	public boolean isRunning, usingScheduler, shortMessages, riddleMode;
+	public boolean isRunning, usingScheduler, shortMessages, riddleMode, enableMetrics;
 
 	public double moneyReward = 0;
 	public int expReward = 0;
@@ -242,6 +242,12 @@ public class ScavengerHunt extends JavaPlugin {
 		} else {
 			return false;
 		}
+		if (config.isBoolean("enableMetrics")) {
+			enableMetrics = config.getBoolean("enableMetrics");
+		}
+		else {
+			enableMetrics = true;
+		}
 		messager = new ScavengerMessager(this);
 		return true;
 	}
@@ -294,7 +300,9 @@ public class ScavengerHunt extends JavaPlugin {
 	public void onEnable() {
 
 		scheduler.start();
-		startMetrics();
+		if (enableMetrics) {
+			startMetrics();
+		}
 		setupEconomy();
 		PotionRetriever.setPotionMap();
 		if (!loadConfig()) {
@@ -348,7 +356,7 @@ public class ScavengerHunt extends JavaPlugin {
 		for (ItemStack i : rewards) {
 			rewardClone.add(i);
 		}
-		if (numOfRewards < 0) {
+		if (numOfRewards <= 0) {
 			currentRewards = rewardClone;
 		} else {
 			for (int i = 0; i < numOfRewards && !rewardClone.isEmpty(); i++) {

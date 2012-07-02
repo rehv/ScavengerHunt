@@ -61,3 +61,7 @@ shortMessageMode: false
 # Scheduler setting. See config page on dev bukkit. Default runs hourly.
 schedule: "0 * * * *"
 enableScheduler: true
+
+# Metrics setting. You can opt-out of metrics by setting this to false.
+# All collected data is sent anonymously
+enableMetrics: true

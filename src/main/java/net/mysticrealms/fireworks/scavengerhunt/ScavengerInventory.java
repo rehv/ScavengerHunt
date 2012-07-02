@@ -18,10 +18,6 @@ public class ScavengerInventory implements Runnable {
 
 	@Override
 	public void run() {
-		// marked for removal, needs testing
-		/*
-		 * if (!plugin.isRunning) { return; }
-		 */
 		if (plugin.end != 0 && plugin.end < System.currentTimeMillis()) {
 			plugin.stopScavengerEvent();
 			return;

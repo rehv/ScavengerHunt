@@ -21,7 +21,7 @@ public class ScavengerRewards {
 			HashMap<Integer, ItemStack> leftOver = new HashMap<Integer, ItemStack>();
 			leftOver.putAll((i.addItem(reward)));
 			if (!leftOver.isEmpty()) {
-				p.getWorld().dropItemNaturally(p.getLocation(), new ItemStack(Material.getMaterial(leftOver.get(0).getTypeId()), leftOver.get(0).getAmount()));
+				p.getWorld().dropItem(p.getLocation(), new ItemStack(Material.getMaterial(leftOver.get(0).getTypeId()), leftOver.get(0).getAmount()));
 			}
 		}
 		if (plugin.isUsingMoney()) {

@@ -6,6 +6,7 @@
 * Assign item objectives check call to somewhere else
 * Add language configuration file
 * Add option to have multiple scavengers running at once
+* Add suport to worldguard (properly)
 
 ## 1.7.1
 * Add enchants to both item Objectives and Rewards
