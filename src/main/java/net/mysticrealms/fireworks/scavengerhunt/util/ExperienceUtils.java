@@ -7,8 +7,7 @@ import org.bukkit.entity.Player;
 /**
  * Original implementation by desht
  * 
- * Credit to nisovin for removing the dependency on player.getTotalExperience(), which is basically broken (does not account for exp change due to
- * enchanting).
+ * Credit to nisovin for removing the dependency on player.getTotalExperience()
  */
 public class ExperienceUtils {
 	public static final int MAX_LEVEL_SUPPORTED = 301;

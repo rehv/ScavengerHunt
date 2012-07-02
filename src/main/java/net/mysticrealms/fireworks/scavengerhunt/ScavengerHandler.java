@@ -10,7 +10,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class ScavengerRewards {
+public class ScavengerHandler {
+	public static void takeItems(ScavengerHunt plugin, Player p) {
+		Inventory i = p.getInventory();
+
+		for (ItemStack item : plugin.currentItems) {
+			i.remove(item);
+		}
+	}
+
 	public static void giveRewards(ScavengerHunt plugin, Player p) {
 		Inventory i = p.getInventory();
 
@@ -29,6 +37,7 @@ public class ScavengerRewards {
 			ScavengerHunt.economy.depositPlayer(p.getName(), plugin.moneyReward);
 		}
 		if (plugin.isUsingExp()) {
+			plugin.getServer().broadcastMessage(ChatColor.GOLD + " * " + plugin.expReward + " exp");
 			ExperienceUtils.changeExp(p, plugin.expReward);
 		}
 		return;

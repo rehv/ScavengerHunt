@@ -2,7 +2,7 @@ package net.mysticrealms.fireworks.scavengerhunt;
 
 import java.util.Map;
 
-import net.mysticrealms.fireworks.scavengerhunt.util.PotionRetriever;
+import net.mysticrealms.fireworks.scavengerhunt.util.NameRetriever;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -36,7 +36,7 @@ public class ScavengerMessager {
 		}
 
 		if ((existItems || existMobs) && shortMessages) {
-			sendAll(ChatColor.GOLD + "/scavengerItems" + ChatColor.DARK_RED + " to view objectives.");
+			sendAll(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerItems" + ChatColor.DARK_RED + " to view objectives.");
 		}
 
 		if ((existItems || existMobs) && !shortMessages && riddleMode) {
@@ -135,7 +135,9 @@ public class ScavengerMessager {
 		} else if (item.getType() == Material.INK_SACK) {
 			return ((Dye) item.getData()).getColor().toString() + " dye";
 		} else if (item.getType() == Material.POTION) {
-			return PotionRetriever.getPotionName(item.getDurability());
+			return NameRetriever.getPotionName(item.getDurability());
+		} else if (item.getType().isRecord()) {
+			return NameRetriever.getDiscName(item.getTypeId());
 		} else {
 			return item.getType().toString();
 		}
@@ -146,11 +148,11 @@ public class ScavengerMessager {
 	}
 
 	public String configToString(ItemStack item, int current) {
-		String itemName = itemFormatter(item).toLowerCase().replace("_", " ").replace("ii", "II");
+		String itemName = itemFormatter(item).toLowerCase().replace("_", " ").replace(" ii", " II");
 		return " * " + ((current != -1) ? current + "/" : "") + item.getAmount() + " " + itemName;
 	}
 
-	private String timeFormatter(int duration) {
+	public static String timeFormatter(int duration) {
 		int step = duration;
 		StringBuilder formatter = new StringBuilder();
 

@@ -46,14 +46,22 @@ rewards:
 # amount pairs will be chosen and used.
 numOfRewards: 0
 
-# Runs for x seconds ; 0 to run until winner
-duration: 0 
-
 # Money awarded to winner (Must have Vault to use!)
 moneyReward: 0
 
 #Experience awarded to winner
 expReward: 0
+
+# global number of rewards ; 0 to disable
+# this will select rewards without defining its type
+# e.g. if globalNumOfRewards = 5 will select 5 random rewards(item, money or exp)
+globalNumOfRewards: 0
+
+# Runs for x seconds ; 0 to run until winner
+duration: 0 
+
+# Remove items gathered from winner?
+removeItems: false
 
 # Enable/disable short message mode (does not display items/rewards/riddles globally)
 shortMessageMode: false

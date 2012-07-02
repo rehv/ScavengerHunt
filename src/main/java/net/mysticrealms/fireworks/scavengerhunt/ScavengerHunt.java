@@ -25,19 +25,21 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.mysticrealms.fireworks.scavengerhunt.util.PotionRetriever;
+import net.mysticrealms.fireworks.scavengerhunt.util.NameRetriever;
 
 public class ScavengerHunt extends JavaPlugin {
 	public ScavengerMessager messager;
 	public static Economy economy = null;
 	public Configuration config;
 	public int duration = 0;
-	public long start = 0, end = 0;
+	public long end = 0;
 
-	public boolean isRunning, usingScheduler, shortMessages, riddleMode, enableMetrics;
+	public boolean isRunning, usingScheduler, shortMessages, riddleMode, removeItems, enableMetrics;
 
 	public double moneyReward = 0;
+	public double moneyBackup = 0;
 	public int expReward = 0;
+	public int expBackup = 0;
 
 	public Map<String, Map<EntityType, Integer>> playerMobs = new ConcurrentHashMap<String, Map<EntityType, Integer>>();
 
@@ -53,6 +55,7 @@ public class ScavengerHunt extends JavaPlugin {
 	public int numOfMobs = 0;
 	public int numOfRewards = 0;
 	public int globalNumOfObjectives = 0;
+	public int globalNumOfRewards = 0;
 
 	public Scheduler scheduler = new Scheduler();
 	public String schedule = "";
@@ -161,11 +164,13 @@ public class ScavengerHunt extends JavaPlugin {
 		} else {
 			return false;
 		}
+		moneyBackup = moneyReward;
 		if (config.isInt("expReward")) {
 			expReward = config.getInt("expReward");
 		} else {
 			return false;
 		}
+		expBackup = expReward;
 		if (config.isInt("duration")) {
 			duration = config.getInt("duration");
 		} else {
@@ -188,6 +193,11 @@ public class ScavengerHunt extends JavaPlugin {
 		}
 		if (config.isInt("globalNumOfObjectives")) {
 			globalNumOfObjectives = config.getInt("globalNumOfObjectives");
+		} else {
+			return false;
+		}
+		if (config.isInt("globalNumOfRewards")) {
+			globalNumOfRewards = config.getInt("globalNumOfRewards");
 		} else {
 			return false;
 		}
@@ -243,10 +253,14 @@ public class ScavengerHunt extends JavaPlugin {
 		} else {
 			return false;
 		}
+		if (config.isBoolean("removeItems")) {
+			removeItems = config.getBoolean("removeItems");
+		} else {
+			removeItems = false;
+		}
 		if (config.isBoolean("enableMetrics")) {
 			enableMetrics = config.getBoolean("enableMetrics");
-		}
-		else {
+		} else {
 			enableMetrics = true;
 		}
 		messager = new ScavengerMessager(this);
@@ -305,7 +319,8 @@ public class ScavengerHunt extends JavaPlugin {
 			startMetrics();
 		}
 		setupEconomy();
-		PotionRetriever.setPotionMap();
+		NameRetriever.setPotionMap();
+		NameRetriever.setDiscMap();
 		if (!loadConfig()) {
 			getLogger().severe("Something is wrong with the config! Disabling!");
 			setEnabled(false);
@@ -335,6 +350,9 @@ public class ScavengerHunt extends JavaPlugin {
 		currentMobs.clear();
 		currentRewards.clear();
 
+		moneyReward = moneyBackup;
+		expReward = expBackup;
+
 		// disabled for this version
 		riddleMode = false;
 
@@ -353,6 +371,28 @@ public class ScavengerHunt extends JavaPlugin {
 			}
 		}
 
+		if (globalNumOfRewards > 0) {
+			numOfRewards = globalNumOfRewards;
+			boolean randomReward[] = new boolean[] { false, false };
+			int size = rewards.size();
+			for (int i = globalNumOfRewards; i > 0; i--) {
+				if (r.nextInt(size + 2) % (size) == 0 && !randomReward[0]) {
+					randomReward[0] = true;
+					numOfRewards--;
+				}
+				if (r.nextInt(size + 2) % (size + 1) == 0 && !randomReward[1]) {
+					randomReward[1] = true;
+					numOfRewards--;
+				}
+			}
+			if (!randomReward[0]) {
+				moneyReward = 0;
+			}
+			if (!randomReward[1]) {
+				expReward = 0;
+			}
+		}
+
 		List<ItemStack> rewardClone = new ArrayList<ItemStack>();
 		for (ItemStack i : rewards) {
 			rewardClone.add(i);
@@ -368,7 +408,7 @@ public class ScavengerHunt extends JavaPlugin {
 		if (numOfItems == 0 && numOfMobs == 0) {
 			messager.sendAll(ChatColor.DARK_RED + "Scavenger hunt free mode! Everyone gets the rewards!");
 			for (Player p : getServer().getOnlinePlayers()) {
-				ScavengerRewards.giveRewards(this, p);
+				ScavengerHandler.giveRewards(this, p);
 			}
 			return;
 		}
@@ -401,8 +441,7 @@ public class ScavengerHunt extends JavaPlugin {
 		if (duration == 0) {
 			end = 0;
 		} else {
-			start = System.currentTimeMillis();
-			end = start + duration * 1000;
+			end = System.currentTimeMillis() + duration * 1000;
 		}
 	}
 
@@ -431,7 +470,7 @@ public class ScavengerHunt extends JavaPlugin {
 	}
 
 	public void stopScavengerEvent() {
-		getServer().broadcastMessage(ChatColor.DARK_RED + "Scavenger Hunt has ended with no winner.");
+		messager.sendAll(ChatColor.DARK_RED + "Scavenger Hunt has ended with no winner.");
 		getServer().getScheduler().cancelTask(taskId);
 		isRunning = false;
 	}

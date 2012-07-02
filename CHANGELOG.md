@@ -1,6 +1,11 @@
 # ScavengerHunt plugin changelog summary
 
 ##1.7.1
+* Added optional globalNumOfRewards, which will select rewards disregarding their type. 0 to disable
+* Configured messages to display record names correctly
+* Added optional removal of objective items from inventory (defaults to false)
+* Added a message to players that logged in after a scavenger event has started
+* Changed some classes' names
 
 ##1.7.0
 * Changed project to maven
@@ -16,7 +21,7 @@
 * Replaced hardcoded command names in plugin.yml "usage:" tag with its proper macro
 * If the player's inventory is full, items will be dropped on the ground next to him
 * "numOf" variables now accept 0 as a valid value (i.e. numOfMobs=0 will remove mob objectives). Use -1 to disable instead
-* Added optional globalNumOfObjectives(will add objectives disregarding its type). Stick to -1 for a disable
+* Added optional globalNumOfObjectives(will add objectives disregarding their type). Stick to -1 for a disable
 * If for any reason the final number of objectives is 0, the plugin just grants free rewards to everyone
 * The event will now stop when the configs are reloaded
 * Added time formatting, in XXhXXmXXs format

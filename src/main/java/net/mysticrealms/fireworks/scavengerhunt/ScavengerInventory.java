@@ -29,22 +29,25 @@ public class ScavengerInventory implements Runnable {
 			}
 
 			Inventory i = p.getInventory();
-			boolean hasItems = true;
+			boolean doneObjectives = true;
 			for (ItemStack item : plugin.currentItems) {
 				if (plugin.count(i, item) < item.getAmount()) {
-					hasItems = false;
+					doneObjectives = false;
 				}
 			}
 			Map<EntityType, Integer> usedEntities = plugin.getMap(p.getName());
 			for (Map.Entry<EntityType, Integer> entry : plugin.currentMobs.entrySet()) {
 				if (entry.getValue() > usedEntities.get(entry.getKey())) {
-					hasItems = false;
+					doneObjectives = false;
 				}
 			}
-			if (hasItems) {
+			if (doneObjectives) {
 				plugin.isRunning = false;
-				plugin.getServer().broadcastMessage(ChatColor.DARK_RED + "Congratulations to " + ChatColor.GOLD + p.getDisplayName() + ChatColor.DARK_RED + "!");
-				ScavengerRewards.giveRewards(plugin, p);
+				plugin.messager.sendAll(ChatColor.DARK_RED + "Congratulations to " + ChatColor.GOLD + p.getDisplayName() + ChatColor.DARK_RED + "!");
+				if (plugin.removeItems) {
+					ScavengerHandler.takeItems(plugin, p);
+				}
+				ScavengerHandler.giveRewards(plugin, p);
 				plugin.getServer().getScheduler().cancelTask(plugin.taskId);
 				return;
 			}
