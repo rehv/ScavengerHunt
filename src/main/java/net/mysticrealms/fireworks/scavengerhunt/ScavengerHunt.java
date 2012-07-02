@@ -33,6 +33,7 @@ public class ScavengerHunt extends JavaPlugin {
 	public Configuration config;
 	public int duration = 0;
 	public long start = 0, end = 0;
+
 	public boolean isRunning, usingScheduler, shortMessages, riddleMode, enableMetrics;
 
 	public double moneyReward = 0;
