@@ -1,5 +1,8 @@
 # ScavengerHunt plugin changelog summary
 
+##1.7.2
+* Moved all (or almost all) sendMessage methods to messager class.
+
 ##1.7.1
 * Added optional globalNumOfRewards, which will select rewards disregarding their type. 0 to disable
 * Configured messages to display record (Music Discs) names correctly

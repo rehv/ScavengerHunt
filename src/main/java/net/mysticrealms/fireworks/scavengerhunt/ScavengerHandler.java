@@ -22,10 +22,10 @@ public class ScavengerHandler {
 	public static void giveRewards(ScavengerHunt plugin, Player p) {
 		Inventory i = p.getInventory();
 
-		plugin.getServer().broadcastMessage(ChatColor.DARK_RED + "Prize was: ");
+		plugin.messager.sendAll(ChatColor.DARK_RED + "Prize was: ");
 		for (ItemStack reward : plugin.currentRewards) {
-			plugin.getServer().broadcastMessage(ChatColor.GOLD + plugin.messager.configToString(reward));
-
+			plugin.messager.sendAll(ChatColor.GOLD + plugin.messager.configToString(reward));
+			
 			HashMap<Integer, ItemStack> leftOver = new HashMap<Integer, ItemStack>();
 			leftOver.putAll((i.addItem(reward)));
 			if (!leftOver.isEmpty()) {
@@ -33,11 +33,11 @@ public class ScavengerHandler {
 			}
 		}
 		if (plugin.isUsingMoney()) {
-			plugin.getServer().broadcastMessage(ChatColor.GOLD + " * " + ScavengerHunt.economy.format(plugin.moneyReward));
+			plugin.messager.sendAll(ChatColor.GOLD + " * " + ScavengerHunt.economy.format(plugin.moneyReward));
 			ScavengerHunt.economy.depositPlayer(p.getName(), plugin.moneyReward);
 		}
 		if (plugin.isUsingExp()) {
-			plugin.getServer().broadcastMessage(ChatColor.GOLD + " * " + plugin.expReward + " exp");
+			plugin.messager.sendAll(ChatColor.GOLD + " * " + plugin.expReward + " exp");
 			ExperienceUtils.changeExp(p, plugin.expReward);
 		}
 		return;
