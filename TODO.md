@@ -1,8 +1,6 @@
 # ScavengerHunt plugin planned improvements
 
 ## No ETA (yet)
-* Assign mob objectives check call to onDeathListener
-* Assign item objectives check call to somewhere else
 * Add language configuration file
 * Add option to have multiple scavenges running at once
 * Add suport to worldguard
@@ -10,6 +8,10 @@
 * Add option to reward differently based on player placing
 * Major code overhaul (write pre-existing ideas from scratch, change package, fix attribute and method protection)
 * Add reward probabilities
+<<<<<<< HEAD
+=======
+* Check impact of savePlayer method being ran for every mob killed
+>>>>>>> refs/remotes/origin/master
 
 ## 1.7.2
 * Do something about tools/armor/weapons requiring 100% durability to count toward objectives

@@ -105,10 +105,17 @@ public class ScavengerMessager {
         p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerRewards" + ChatColor.DARK_RED + " to view rewards.");
     }
 
+<<<<<<< HEAD
     public void displayRejoinFailed(Player p) {
         p.sendMessage(ChatColor.DARK_RED + "Your progress in the current scavenger couldn't be loaded.");
         p.sendMessage(ChatColor.DARK_RED + "Your mob objectives will need to be done again.");
     }
+=======
+	public void displayRejoinFailed(Player p) {
+		p.sendMessage(ChatColor.DARK_RED + "Your progress in the current scavenger couldn't be loaded.");
+		p.sendMessage(ChatColor.DARK_RED + "Your mob objectives will need to be done again.");
+	}
+>>>>>>> refs/remotes/origin/master
 
     public void listHelp(CommandSender sender) {
         sender.sendMessage(ChatColor.DARK_RED + "== Scavenger Help Guide ==");

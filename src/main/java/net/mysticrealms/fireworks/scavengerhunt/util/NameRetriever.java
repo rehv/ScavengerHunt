@@ -22,7 +22,7 @@ public class NameRetriever {
 
     public static void setPotionMap() {
         String formatter = "Potion of ";
-
+        
         // base potions
         potionMap.put((short) 0, "Water Bottle");
         potionMap.put((short) 16, "Awkward Potion");
@@ -47,7 +47,7 @@ public class NameRetriever {
             potionMap.put((short) (i + 8256), "Splash " + formatter + potionType[i - 8193] + " (Extended)");
         }
 
-        // Potions 8198-8199 are skipped
+        // Potion 8199 is skipped
         for (short i = 8200; i < 8200 + potionType.length - 6; i++) {
             potionMap.put(i, formatter + potionType[i - 8200 + 5]);
             potionMap.put((short) (i + 32), formatter + potionType[i - 8200 + 5] + " II");
@@ -78,7 +78,7 @@ public class NameRetriever {
         potionMap.put((short) 8268, formatter + "Harming (Reverted)");
         potionMap.put((short) 16460, "Splash " + formatter + "Harming (Reverted)");
 
-        // potions of Night Vision and Invisibility
+        // potions of Night Vision and Invisibility - lame quick fix
         i = 8198;
         potionMap.put(i, formatter + "Night Vision");
         potionMap.put((short) (i + 64), formatter + "Night Vision" + " (Extended)");
