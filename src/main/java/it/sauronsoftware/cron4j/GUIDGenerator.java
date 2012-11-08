@@ -35,7 +35,7 @@ class GUIDGenerator {
 	 * The machine descriptor, which is used to identified the underlying hardware machine.
 	 */
 	private static String MACHINE_DESCRIPTOR = getMachineDescriptor();
-	
+
 	/**
 	 * Generates a GUID (48 chars).
 	 * 
@@ -83,8 +83,7 @@ class GUIDGenerator {
 	}
 
 	/**
-	 * Builds a descriptor fragment using the {@link NetworkInterface} class,
-	 * available since Java 1.4.
+	 * Builds a descriptor fragment using the {@link NetworkInterface} class, available since Java 1.4.
 	 * 
 	 * @return A descriptor fragment, or null if the method fails.
 	 */

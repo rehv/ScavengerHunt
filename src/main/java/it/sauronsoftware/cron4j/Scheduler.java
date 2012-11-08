@@ -42,14 +42,12 @@ public class Scheduler {
 	private TimeZone timezone = null;
 
 	/**
-	 * The daemon flag. If true the scheduler and its spawned threads acts like
-	 * daemons.
+	 * The daemon flag. If true the scheduler and its spawned threads acts like daemons.
 	 */
 	private boolean daemon = false;
 
 	/**
-	 * The state flag. If true the scheduler is started and running, otherwise
-	 * it is paused and no task is launched.
+	 * The state flag. If true the scheduler is started and running, otherwise it is paused and no task is launched.
 	 */
 	private boolean started = false;
 
@@ -59,15 +57,13 @@ public class Scheduler {
 	private ArrayList collectors = new ArrayList();
 
 	/**
-	 * The {@link MemoryTaskCollector} used for memory stored tasks. Represented
-	 * here for convenience, it is also the first element in the
+	 * The {@link MemoryTaskCollector} used for memory stored tasks. Represented here for convenience, it is also the first element in the
 	 * {@link Scheduler#collectors} list.
 	 */
 	private MemoryTaskCollector memoryTaskCollector = new MemoryTaskCollector();
 
 	/**
-	 * The {@link FileTaskCollector} used for reading tasks from files.
-	 * Represented here for convenience, it is also the second element in the
+	 * The {@link FileTaskCollector} used for reading tasks from files. Represented here for convenience, it is also the second element in the
 	 * {@link Scheduler#collectors} list.
 	 */
 	private FileTaskCollector fileTaskCollector = new FileTaskCollector();
@@ -78,8 +74,7 @@ public class Scheduler {
 	private ArrayList listeners = new ArrayList();
 
 	/**
-	 * The thread checking the clock and requesting the spawning of launcher
-	 * threads.
+	 * The thread checking the clock and requesting the spawning of launcher threads.
 	 */
 	private TimerThread timer = null;
 
@@ -120,10 +115,8 @@ public class Scheduler {
 	 * Sets the time zone applied by the scheduler.
 	 * </p>
 	 * <p>
-	 * Current system time is adapted to the supplied time zone before comparing
-	 * it with registered scheduling patterns. The result is that any supplied
-	 * scheduling pattern is treated according to the specified time zone. In
-	 * example, suppose:
+	 * Current system time is adapted to the supplied time zone before comparing it with registered scheduling patterns. The result is that any
+	 * supplied scheduling pattern is treated according to the specified time zone. In example, suppose:
 	 * </p>
 	 * <ul>
 	 * <li>System time: 10:00</li>
@@ -131,12 +124,9 @@ public class Scheduler {
 	 * <li>Scheduler time zone: GMT+3</li>
 	 * </ul>
 	 * <p>
-	 * The scheduler, before comparing system time with patterns, translates
-	 * 10:00 from GMT+1 to GMT+3. It means that 10:00 becomes 12:00. The
-	 * resulted time is then used by the scheduler to activate tasks. So, in the
-	 * given configuration at the given moment, any task scheduled as
-	 * <em>0 12 * * *</em> will be executed, while any <em>0 10 * * *</em> will
-	 * not.
+	 * The scheduler, before comparing system time with patterns, translates 10:00 from GMT+1 to GMT+3. It means that 10:00 becomes 12:00. The
+	 * resulted time is then used by the scheduler to activate tasks. So, in the given configuration at the given moment, any task scheduled as
+	 * <em>0 12 * * *</em> will be executed, while any <em>0 10 * * *</em> will not.
 	 * </p>
 	 * 
 	 * @param timezone
@@ -165,9 +155,8 @@ public class Scheduler {
 	}
 
 	/**
-	 * Marks this scheduler daemon flag. When a scheduler is marked as a daemon
-	 * scheduler it spawns only daemon threads. The Java Virtual Machine exits
-	 * when the only threads running are all daemon threads.
+	 * Marks this scheduler daemon flag. When a scheduler is marked as a daemon scheduler it spawns only daemon threads. The Java Virtual Machine
+	 * exits when the only threads running are all daemon threads.
 	 * 
 	 * This method must be called before the scheduler is started.
 	 * 
@@ -197,12 +186,10 @@ public class Scheduler {
 	}
 
 	/**
-	 * Adds a {@link File} instance to the scheduler. Every minute the file will
-	 * be parsed. The scheduler will execute any declared task whose scheduling
-	 * pattern matches the current system time.
+	 * Adds a {@link File} instance to the scheduler. Every minute the file will be parsed. The scheduler will execute any declared task whose
+	 * scheduling pattern matches the current system time.
 	 * 
-	 * See {@link CronParser} documentation for informations about the file
-	 * contents syntax.
+	 * See {@link CronParser} documentation for informations about the file contents syntax.
 	 * 
 	 * @param file
 	 *            The {@link File} instance.
@@ -212,8 +199,7 @@ public class Scheduler {
 	}
 
 	/**
-	 * Removes a {@link File} instance previously scheduled with the
-	 * {@link Scheduler#scheduleFile(File)} method.
+	 * Removes a {@link File} instance previously scheduled with the {@link Scheduler#scheduleFile(File)} method.
 	 * 
 	 * @param file
 	 *            The {@link File} instance.
@@ -223,21 +209,17 @@ public class Scheduler {
 	}
 
 	/**
-	 * Returns an array containing any {@link File} previously scheduled with
-	 * the {@link Scheduler#scheduleFile(File)} method.
+	 * Returns an array containing any {@link File} previously scheduled with the {@link Scheduler#scheduleFile(File)} method.
 	 * 
-	 * @return An array containing any {@link File} previously scheduled with
-	 *         the {@link Scheduler#scheduleFile(File)} method.
+	 * @return An array containing any {@link File} previously scheduled with the {@link Scheduler#scheduleFile(File)} method.
 	 */
 	public File[] getScheduledFiles() {
 		return fileTaskCollector.getFiles();
 	}
 
 	/**
-	 * Adds a custom {@link TaskCollector} instance to the scheduler. The
-	 * supplied object, once added to the scheduler, will be query every minute
-	 * for its task list. The scheduler will execute any of the returned tasks
-	 * whose scheduling pattern matches the current system time.
+	 * Adds a custom {@link TaskCollector} instance to the scheduler. The supplied object, once added to the scheduler, will be query every minute for
+	 * its task list. The scheduler will execute any of the returned tasks whose scheduling pattern matches the current system time.
 	 * 
 	 * @param collector
 	 *            The custom {@link TaskCollector} instance.
@@ -261,12 +243,10 @@ public class Scheduler {
 	}
 
 	/**
-	 * Returns an array containing any custom {@link TaskCollector} instance
-	 * previously registered in the scheduler with the
+	 * Returns an array containing any custom {@link TaskCollector} instance previously registered in the scheduler with the
 	 * {@link Scheduler#addTaskCollector(TaskCollector)} method.
 	 * 
-	 * @return An array containing any custom {@link TaskCollector} instance
-	 *         previously registered in the scheduler with the
+	 * @return An array containing any custom {@link TaskCollector} instance previously registered in the scheduler with the
 	 *         {@link Scheduler#addTaskCollector(TaskCollector)} method.
 	 */
 	public TaskCollector[] getTaskCollectors() {
@@ -282,9 +262,8 @@ public class Scheduler {
 	}
 
 	/**
-	 * Adds a {@link SchedulerListener} to the scheduler. A
-	 * {@link SchedulerListener} is notified every time a task is launching, has
-	 * succeeded or has failed.
+	 * Adds a {@link SchedulerListener} to the scheduler. A {@link SchedulerListener} is notified every time a task is launching, has succeeded or has
+	 * failed.
 	 * 
 	 * @param listener
 	 *            The listener.
@@ -296,8 +275,7 @@ public class Scheduler {
 	}
 
 	/**
-	 * Removes a {@link SchedulerListener} previously registered with the
-	 * {@link Scheduler#addSchedulerListener(SchedulerListener)} method.
+	 * Removes a {@link SchedulerListener} previously registered with the {@link Scheduler#addSchedulerListener(SchedulerListener)} method.
 	 * 
 	 * @param listener
 	 *            The listener.
@@ -309,12 +287,10 @@ public class Scheduler {
 	}
 
 	/**
-	 * Returns an array containing any {@link SchedulerListener} previously
-	 * registered with the
+	 * Returns an array containing any {@link SchedulerListener} previously registered with the
 	 * {@link Scheduler#addSchedulerListener(SchedulerListener)} method.
 	 * 
-	 * @return An array containing any {@link SchedulerListener} previously
-	 *         registered with the
+	 * @return An array containing any {@link SchedulerListener} previously registered with the
 	 *         {@link Scheduler#addSchedulerListener(SchedulerListener)} method.
 	 */
 	public SchedulerListener[] getSchedulerListeners() {
@@ -329,16 +305,12 @@ public class Scheduler {
 	}
 
 	/**
-	 * Returns an array containing any currently executing task, in the form of
-	 * {@link TaskExecutor} objects. Each running task is executed by a
-	 * different thread. A {@link TaskExecutor} object allows the control of the
-	 * running task. The inner {@link Task} representation could be retrieved,
-	 * the status of the task could be detected and the thread could be
-	 * interrupted using any standard {@link Thread} method (
+	 * Returns an array containing any currently executing task, in the form of {@link TaskExecutor} objects. Each running task is executed by a
+	 * different thread. A {@link TaskExecutor} object allows the control of the running task. The inner {@link Task} representation could be
+	 * retrieved, the status of the task could be detected and the thread could be interrupted using any standard {@link Thread} method (
 	 * {@link Thread#interrupt()}, {@link Thread#isAlive() etc}.
 	 * 
-	 * @return An array containing any currently executing task, in the form of
-	 *         {@link TaskExecutor} objects.
+	 * @return An array containing any currently executing task, in the form of {@link TaskExecutor} objects.
 	 */
 	public TaskExecutor[] getExecutingTasks() {
 		synchronized (executors) {
@@ -358,14 +330,12 @@ public class Scheduler {
 	 *            The scheduling pattern for the task.
 	 * @param task
 	 *            The task, as a plain Runnable object.
-	 * @return The task auto-generated ID assigned by the scheduler. This ID can
-	 *         be used later to reschedule and deschedule the task, and also to
+	 * @return The task auto-generated ID assigned by the scheduler. This ID can be used later to reschedule and deschedule the task, and also to
 	 *         retrieve informations about it.
 	 * @throws InvalidPatternException
 	 *             If the supplied pattern is not valid.
 	 */
-	public String schedule(String schedulingPattern, Runnable task)
-			throws InvalidPatternException {
+	public String schedule(String schedulingPattern, Runnable task) throws InvalidPatternException {
 		return schedule(schedulingPattern, new RunnableTask(task));
 	}
 
@@ -376,15 +346,13 @@ public class Scheduler {
 	 *            The scheduling pattern for the task.
 	 * @param task
 	 *            The task, as a plain Runnable object.
-	 * @return The task auto-generated ID assigned by the scheduler. This ID can
-	 *         be used later to reschedule and deschedule the task, and also to
+	 * @return The task auto-generated ID assigned by the scheduler. This ID can be used later to reschedule and deschedule the task, and also to
 	 *         retrieve informations about it.
 	 * @throws InvalidPatternException
 	 *             If the supplied pattern is not valid.
 	 * @since 2.0
 	 */
-	public String schedule(String schedulingPattern, Task task)
-			throws InvalidPatternException {
+	public String schedule(String schedulingPattern, Task task) throws InvalidPatternException {
 		return schedule(new SchedulingPattern(schedulingPattern), task);
 	}
 
@@ -395,8 +363,7 @@ public class Scheduler {
 	 *            The scheduling pattern for the task.
 	 * @param task
 	 *            The task, as a plain Runnable object.
-	 * @return The task auto-generated ID assigned by the scheduler. This ID can
-	 *         be used later to reschedule and deschedule the task, and also to
+	 * @return The task auto-generated ID assigned by the scheduler. This ID can be used later to reschedule and deschedule the task, and also to
 	 *         retrieve informations about it.
 	 * @since 2.0
 	 */
@@ -415,8 +382,7 @@ public class Scheduler {
 	 *             If the supplied pattern is not valid.
 	 * @deprecated Use {@link Scheduler#reschedule(String, String)}.
 	 */
-	public void reschedule(Object id, String schedulingPattern)
-			throws InvalidPatternException {
+	public void reschedule(Object id, String schedulingPattern) throws InvalidPatternException {
 		reschedule((String) id, new SchedulingPattern(schedulingPattern));
 	}
 
@@ -430,8 +396,7 @@ public class Scheduler {
 	 * @throws InvalidPatternException
 	 *             If the supplied pattern is not valid.
 	 */
-	public void reschedule(String id, String schedulingPattern)
-			throws InvalidPatternException {
+	public void reschedule(String id, String schedulingPattern) throws InvalidPatternException {
 		reschedule(id, new SchedulingPattern(schedulingPattern));
 	}
 
@@ -486,8 +451,7 @@ public class Scheduler {
 	 * 
 	 * @param id
 	 *            The task ID.
-	 * @return The requested scheduling pattern, or null if the task was not
-	 *         found.
+	 * @return The requested scheduling pattern, or null if the task was not found.
 	 * @since 2.0
 	 */
 	public SchedulingPattern getSchedulingPattern(String id) {
@@ -499,8 +463,7 @@ public class Scheduler {
 	 * 
 	 * @param id
 	 *            The task ID.
-	 * @return The Runnable object of the task, or null if the task was not
-	 *         found.
+	 * @return The Runnable object of the task, or null if the task was not found.
 	 * @deprecated Use {@link Scheduler#getTask(String)}.
 	 */
 	public Runnable getTaskRunnable(Object id) {
@@ -514,13 +477,11 @@ public class Scheduler {
 	}
 
 	/**
-	 * This method retrieves the scheduling pattern of a previously scheduled
-	 * task.
+	 * This method retrieves the scheduling pattern of a previously scheduled task.
 	 * 
 	 * @param id
 	 *            The task ID.
-	 * @return The scheduling pattern of the task, or null if the task was not
-	 *         found.
+	 * @return The scheduling pattern of the task, or null if the task was not found.
 	 * @deprecated Use {@link Scheduler#getSchedulingPattern(String)}.
 	 */
 	public String getTaskSchedulingPattern(Object id) {
@@ -546,8 +507,7 @@ public class Scheduler {
 	}
 
 	/**
-	 * This method starts the scheduler. When the scheduled is started the
-	 * supplied tasks are executed at the given moment.
+	 * This method starts the scheduler. When the scheduled is started the supplied tasks are executed at the given moment.
 	 * 
 	 * @throws IllegalStateException
 	 *             Thrown if this scheduler is already started.
@@ -570,9 +530,8 @@ public class Scheduler {
 	}
 
 	/**
-	 * This method stops the scheduler execution. Before returning, it waits the
-	 * end of all the running tasks previously launched. Once the scheduler has
-	 * been stopped it can be started again with a start() call.
+	 * This method stops the scheduler execution. Before returning, it waits the end of all the running tasks previously launched. Once the scheduler
+	 * has been stopped it can be started again with a start() call.
 	 * 
 	 * @throws IllegalStateException
 	 *             Thrown if this scheduler is not started.
@@ -638,8 +597,7 @@ public class Scheduler {
 				nowCollectors[i] = (TaskCollector) collectors.get(i);
 			}
 		}
-		LauncherThread l = new LauncherThread(this, nowCollectors,
-				referenceTimeInMillis);
+		LauncherThread l = new LauncherThread(this, nowCollectors, referenceTimeInMillis);
 		synchronized (launchers) {
 			launchers.add(l);
 		}
@@ -665,8 +623,7 @@ public class Scheduler {
 	}
 
 	/**
-	 * This method is called by a launcher thread to notify that the execution
-	 * is completed.
+	 * This method is called by a launcher thread to notify that the execution is completed.
 	 * 
 	 * @param launcher
 	 *            The launcher which has completed its task.
@@ -678,8 +635,7 @@ public class Scheduler {
 	}
 
 	/**
-	 * This method is called by a task executor to notify that the execution is
-	 * completed.
+	 * This method is called by a task executor to notify that the execution is completed.
 	 * 
 	 * @param executor
 	 *            The executor which has completed its task.
@@ -707,8 +663,7 @@ public class Scheduler {
 	}
 
 	/**
-	 * Notifies every registered listener that a task execution has successfully
-	 * completed.
+	 * Notifies every registered listener that a task execution has successfully completed.
 	 * 
 	 * @param executor
 	 *            The task executor.
@@ -724,8 +679,7 @@ public class Scheduler {
 	}
 
 	/**
-	 * Notifies every registered listener that a task execution has failed due
-	 * to an uncaught exception.
+	 * Notifies every registered listener that a task execution has failed due to an uncaught exception.
 	 * 
 	 * @param executor
 	 *            The task executor.
@@ -750,9 +704,7 @@ public class Scheduler {
 	// -- PRIVATE METHODS -----------------------------------------------------
 
 	/**
-	 * It waits until the given thread is dead. It is similar to
-	 * {@link Thread#join()}, but this one avoids {@link InterruptedException}
-	 * instances.
+	 * It waits until the given thread is dead. It is similar to {@link Thread#join()}, but this one avoids {@link InterruptedException} instances.
 	 * 
 	 * @param thread
 	 *            The thread.
@@ -770,9 +722,8 @@ public class Scheduler {
 	}
 
 	/**
-	 * It waits until the given task executor is dead. It is similar to
-	 * {@link TaskExecutor#join()}, but this one avoids
-	 * {@link InterruptedException} instances.
+	 * It waits until the given task executor is dead. It is similar to {@link TaskExecutor#join()}, but this one avoids {@link InterruptedException}
+	 * instances.
 	 * 
 	 * @param executor
 	 *            The task executor.

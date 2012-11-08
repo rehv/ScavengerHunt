@@ -18,6 +18,7 @@ import java.util.Map;
 public class NameRetriever {
 	public static Map<Short, String> potionMap = new HashMap<Short, String>();
 	public static Map<Integer, String> discMap = new HashMap<Integer, String>();
+	public static Map<Integer, String> enchantMap = new HashMap<Integer, String>();
 
 	public static void setPotionMap() {
 		String formatter = "Potion of ";
@@ -76,22 +77,49 @@ public class NameRetriever {
 		potionMap.put((short) 16426, "Splash " + formatter + "Slowness (Reverted)");
 		potionMap.put((short) 8268, formatter + "Harming (Reverted)");
 		potionMap.put((short) 16460, "Splash " + formatter + "Harming (Reverted)");
+
+		// potions of Night Vision and Invisibility
+		i = 8198;
+		potionMap.put(i, formatter + "Night Vision");
+		potionMap.put((short) (i + 64), formatter + "Night Vision" + " (Extended)");
+		potionMap.put((short) (i + 8192), "Splash " + formatter + "Night Vision");
+		potionMap.put((short) (i + 8256), "Splash " + formatter + "Night Vision" + " (Extended)");
+
+		i = 8206;
+		potionMap.put(i, formatter + "Invisibility");
+		potionMap.put((short) (i + 64), formatter + "Invisibility" + " (Extended)");
+		potionMap.put((short) (i + 8192), "Splash " + formatter + "Invisibility");
+		potionMap.put((short) (i + 8256), "Splash " + formatter + "Invisibility" + " (Extended)");
 	}
 
 	public static void setDiscMap() {
 		String formatter = "Music Disc - ";
+		String[] discName = new String[] { "13", "cat", "blocks", "chirp", "far", "mall", "mellohi", "stal", "strad", "ward", "11" };
+		for (int i = 0; i < discName.length; i++) {
+			discMap.put(i + 2256, formatter + discName[i]);
+		}
+	}
 
-		discMap.put(2256, formatter + "13");
-		discMap.put(2257, formatter + "cat");
-		discMap.put(2258, formatter + "blocks");
-		discMap.put(2259, formatter + "chirp");
-		discMap.put(2260, formatter + "far");
-		discMap.put(2261, formatter + "mall");
-		discMap.put(2262, formatter + "mellohi");
-		discMap.put(2263, formatter + "stal");
-		discMap.put(2264, formatter + "strad");
-		discMap.put(2265, formatter + "ward");
-		discMap.put(2266, formatter + "11");
+	public static void setEnchantMap() {
+		String[] armorEnchant = new String[] { "Protection", "Fire Protection", "Feather Falling", "Blast Protection", "Projectile Protection", "Respiration", "Aqua Affinity" };
+		for (int i = 0; i < armorEnchant.length; i++) {
+			enchantMap.put(i, armorEnchant[i]);
+		}
+
+		String[] weaponEnchant = new String[] { "Sharpness", "Smite", "Bane of Arthropods", "Knockback", "Fire Aspect", "Looting" };
+		for (int i = 0; i < weaponEnchant.length; i++) {
+			enchantMap.put(i + 16, weaponEnchant[i]);
+		}
+
+		String[] toolEnchant = new String[] { "Efficiency", "Silk Touch", "Unbreaking", "Fortune" };
+		for (int i = 0; i < toolEnchant.length; i++) {
+			enchantMap.put(i + 32, toolEnchant[i]);
+		}
+
+		String[] bowEnchant = new String[] { "Power", "Punch", "Flame", "Infinity" };
+		for (int i = 0; i < bowEnchant.length; i++) {
+			enchantMap.put(i + 48, bowEnchant[i]);
+		}
 	}
 
 	public static String getPotionName(short potionDV) {
@@ -100,6 +128,10 @@ public class NameRetriever {
 
 	public static String getDiscName(int discDV) {
 		return discMap.get(discDV).toString();
+	}
+
+	public static String getEnchantName(int enchID) {
+		return enchantMap.get(enchID).toString();
 	}
 
 	// Prints potion map (debug)

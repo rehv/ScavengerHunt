@@ -26,13 +26,11 @@ import java.util.Iterator;
  * Represents a task executor, which is something similar to threads.
  * </p>
  * <p>
- * Each time a task is launched, a new executor is spawned, executing and
- * watching the task
+ * Each time a task is launched, a new executor is spawned, executing and watching the task
  * </p>
  * <p>
- * Alive task executors can be retrieved with the
- * {@link Scheduler#getExecutingTasks()} method, and they expose method to
- * control the ongoing execution.
+ * Alive task executors can be retrieved with the {@link Scheduler#getExecutingTasks()} method, and they expose method to control the ongoing
+ * execution.
  * </p>
  * 
  * @see Scheduler#getExecutingTasks()
@@ -135,15 +133,11 @@ public class TaskExecutor {
 	}
 
 	/**
-	 * Returns an array containing any {@link TaskExecutorListener} previously
-	 * registered with the
-	 * {@link TaskExecutor#addTaskExecutorListener(TaskExecutorListener)}
-	 * method.
+	 * Returns an array containing any {@link TaskExecutorListener} previously registered with the
+	 * {@link TaskExecutor#addTaskExecutorListener(TaskExecutorListener)} method.
 	 * 
-	 * @return An array containing any {@link TaskExecutorListener} previously
-	 *         registered with the
-	 *         {@link TaskExecutor#addTaskExecutorListener(TaskExecutorListener)}
-	 *         method.
+	 * @return An array containing any {@link TaskExecutorListener} previously registered with the
+	 *         {@link TaskExecutor#addTaskExecutorListener(TaskExecutorListener)} method.
 	 */
 	public TaskExecutorListener[] getTaskExecutorListeners() {
 		synchronized (listeners) {
@@ -184,11 +178,9 @@ public class TaskExecutor {
 	}
 
 	/**
-	 * Returns a time stamp reporting the start time of this executor, or a
-	 * value less than 0 if this executor has not been yet started.
+	 * Returns a time stamp reporting the start time of this executor, or a value less than 0 if this executor has not been yet started.
 	 * 
-	 * @return A time stamp reporting the start time of this executor, or a
-	 *         value less than 0 if this executor has not been yet started.
+	 * @return A time stamp reporting the start time of this executor, or a value less than 0 if this executor has not been yet started.
 	 */
 	public long getStartTime() {
 		return startTime;
@@ -215,8 +207,7 @@ public class TaskExecutor {
 	/**
 	 * Checks whether this executor provides completeness tracking informations.
 	 * 
-	 * @return true if this executor provides completeness tracking
-	 *         informations.
+	 * @return true if this executor provides completeness tracking informations.
 	 */
 	public boolean supportsCompletenessTracking() {
 		return task.supportsCompletenessTracking();
@@ -252,8 +243,7 @@ public class TaskExecutor {
 	 * Pauses the ongoing execution.
 	 * 
 	 * @throws UnsupportedOperationException
-	 *             The operation is not supported if
-	 *             {@link TaskExecutor#canBePaused()} returns <em>false</em>.
+	 *             The operation is not supported if {@link TaskExecutor#canBePaused()} returns <em>false</em>.
 	 */
 	public void pause() throws UnsupportedOperationException {
 		if (!canBePaused()) {
@@ -284,8 +274,7 @@ public class TaskExecutor {
 	 * Stops the ongoing execution.
 	 * 
 	 * @throws UnsupportedOperationException
-	 *             The operation is not supported if
-	 *             {@link TaskExecutor#canBeStopped()} returns <em>false</em>.
+	 *             The operation is not supported if {@link TaskExecutor#canBeStopped()} returns <em>false</em>.
 	 */
 	public void stop() throws UnsupportedOperationException {
 		if (!canBeStopped()) {
@@ -320,9 +309,8 @@ public class TaskExecutor {
 	 * Waits for this executor to die.
 	 * 
 	 * @throws InterruptedException
-	 *             If any thread has interrupted the current thread. The
-	 *             interrupted status of the current thread is cleared when this
-	 *             exception is thrown.
+	 *             If any thread has interrupted the current thread. The interrupted status of the current thread is cleared when this exception is
+	 *             thrown.
 	 */
 	public void join() throws InterruptedException {
 		if (thread != null) {
@@ -331,8 +319,7 @@ public class TaskExecutor {
 	}
 
 	/**
-	 * Tests if this executor is alive. An executor is alive if it has been
-	 * started and has not yet died.
+	 * Tests if this executor is alive. An executor is alive if it has been started and has not yet died.
 	 * 
 	 * @return true if this executor is alive; false otherwise.
 	 */
@@ -349,14 +336,11 @@ public class TaskExecutor {
 	 * 
 	 * @return The current status message.
 	 * @throws UnsupportedOperationException
-	 *             The operation is not supported if
-	 *             {@link TaskExecutor#supportsStatusTracking()} returns
-	 *             <em>false</em>.
+	 *             The operation is not supported if {@link TaskExecutor#supportsStatusTracking()} returns <em>false</em>.
 	 */
 	public String getStatusMessage() throws UnsupportedOperationException {
 		if (!supportsStatusTracking()) {
-			throw new UnsupportedOperationException(
-					"Status tracking not supported");
+			throw new UnsupportedOperationException("Status tracking not supported");
 		}
 		return context.getStatusMessage();
 	}
@@ -366,14 +350,11 @@ public class TaskExecutor {
 	 * 
 	 * @return The current completeness value, which is a value between 0 and 1.
 	 * @throws UnsupportedOperationException
-	 *             The operation is not supported if
-	 *             {@link TaskExecutor#supportsCompletenessTracking()} returns
-	 *             <em>false</em>.
+	 *             The operation is not supported if {@link TaskExecutor#supportsCompletenessTracking()} returns <em>false</em>.
 	 */
 	public double getCompleteness() throws UnsupportedOperationException {
 		if (!supportsCompletenessTracking()) {
-			throw new UnsupportedOperationException(
-					"Completeness tracking not supported");
+			throw new UnsupportedOperationException("Completeness tracking not supported");
 		}
 		return context.getCompleteness();
 	}
@@ -437,8 +418,7 @@ public class TaskExecutor {
 	 * Notify registered listeners the execution has been terminated.
 	 * 
 	 * @param exception
-	 *            If the execution has been terminated due to an error, this is
-	 *            the encountered exception; otherwise the parameter is null.
+	 *            If the execution has been terminated due to an error, this is the encountered exception; otherwise the parameter is null.
 	 */
 	private void notifyExecutionTerminated(Throwable exception) {
 		synchronized (listeners) {
@@ -570,11 +550,9 @@ public class TaskExecutor {
 		}
 
 		/**
-		 * Returns the current completeness value, which is a value between 0
-		 * and 1.
+		 * Returns the current completeness value, which is a value between 0 and 1.
 		 * 
-		 * @return The current completeness value, which is a value between 0
-		 *         and 1.
+		 * @return The current completeness value, which is a value between 0 and 1.
 		 */
 		public double getCompleteness() {
 			return completeness;

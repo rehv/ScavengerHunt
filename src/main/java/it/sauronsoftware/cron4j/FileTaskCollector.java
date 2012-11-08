@@ -24,8 +24,7 @@ import java.util.ArrayList;
 
 /**
  * <p>
- * A {@link TaskCollector} implementation, reading the task list from a group of
- * files.
+ * A {@link TaskCollector} implementation, reading the task list from a group of files.
  * </p>
  * 
  * @author Carlo Pelliccia
@@ -84,8 +83,7 @@ class FileTaskCollector implements TaskCollector {
 			try {
 				aux = CronParser.parse(f);
 			} catch (IOException e) {
-				Exception e1 = new Exception("Cannot parse cron file: "
-						+ f.getAbsolutePath(), e);
+				Exception e1 = new Exception("Cannot parse cron file: " + f.getAbsolutePath(), e);
 				e1.printStackTrace();
 			}
 			if (aux != null) {

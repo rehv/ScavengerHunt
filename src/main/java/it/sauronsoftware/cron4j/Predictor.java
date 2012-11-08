@@ -28,9 +28,8 @@ import java.util.TimeZone;
  * A predictor is able to predict when a scheduling pattern will be matched.
  * </p>
  * <p>
- * Suppose you want to know when the scheduler will execute a task scheduled
- * with the pattern <em>0 3 * jan-jun,sep-dec mon-fri</em>. You can predict the
- * next <em>n</em> execution of the task using a Predictor instance:
+ * Suppose you want to know when the scheduler will execute a task scheduled with the pattern <em>0 3 * jan-jun,sep-dec mon-fri</em>. You can predict
+ * the next <em>n</em> execution of the task using a Predictor instance:
  * </p>
  * 
  * <pre>
@@ -71,8 +70,7 @@ public class Predictor {
 	 * @throws InvalidPatternException
 	 *             In the given scheduling pattern isn't valid.
 	 */
-	public Predictor(String schedulingPattern, long start)
-			throws InvalidPatternException {
+	public Predictor(String schedulingPattern, long start) throws InvalidPatternException {
 		this.schedulingPattern = new SchedulingPattern(schedulingPattern);
 		this.time = (start / (1000 * 60)) * 1000 * 60;
 	}
@@ -87,14 +85,12 @@ public class Predictor {
 	 * @throws InvalidPatternException
 	 *             In the given scheduling pattern isn't valid.
 	 */
-	public Predictor(String schedulingPattern, Date start)
-			throws InvalidPatternException {
+	public Predictor(String schedulingPattern, Date start) throws InvalidPatternException {
 		this(schedulingPattern, start.getTime());
 	}
 
 	/**
-	 * It builds a predictor with the given scheduling pattern and the current
-	 * system time as the prediction start time.
+	 * It builds a predictor with the given scheduling pattern and the current system time as the prediction start time.
 	 * 
 	 * @param schedulingPattern
 	 *            The pattern on which the prediction will be based.
@@ -133,8 +129,7 @@ public class Predictor {
 	}
 
 	/**
-	 * It builds a predictor with the given scheduling pattern and the current
-	 * system time as the prediction start time.
+	 * It builds a predictor with the given scheduling pattern and the current system time as the prediction start time.
 	 * 
 	 * @param schedulingPattern
 	 *            The pattern on which the prediction will be based.
@@ -261,8 +256,7 @@ public class Predictor {
 				dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
 				month = c.get(Calendar.MONTH);
 				year = c.get(Calendar.YEAR);
-				if (month != oldMonth || dayOfMonth != oldDayOfMonth
-						|| year != oldYear) {
+				if (month != oldMonth || dayOfMonth != oldDayOfMonth || year != oldYear) {
 					// Take another spin!
 					continue;
 				}

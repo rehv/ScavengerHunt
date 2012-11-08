@@ -20,8 +20,7 @@ package it.sauronsoftware.cron4j;
 
 /**
  * <p>
- * Implement this interface and register your instance with the
- * {@link Scheduler#addSchedulerListener(SchedulerListener)} method to receive
+ * Implement this interface and register your instance with the {@link Scheduler#addSchedulerListener(SchedulerListener)} method to receive
  * notifications about scheduled task executions.
  * </p>
  * 
@@ -39,8 +38,7 @@ public interface SchedulerListener {
 	public void taskLaunching(TaskExecutor executor);
 
 	/**
-	 * This one is called by the scheduler to notify that a task execution has
-	 * been successfully completed.
+	 * This one is called by the scheduler to notify that a task execution has been successfully completed.
 	 * 
 	 * @param executor
 	 *            The task executor.
@@ -48,8 +46,7 @@ public interface SchedulerListener {
 	public void taskSucceeded(TaskExecutor executor);
 
 	/**
-	 * This one is called by the scheduler to notify that a task execution has
-	 * failed.
+	 * This one is called by the scheduler to notify that a task execution has failed.
 	 * 
 	 * @param executor
 	 *            The task executor.

@@ -1,7 +1,10 @@
 package net.mysticrealms.fireworks.scavengerhunt;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -22,16 +25,17 @@ public class ScavengerInventory implements Runnable {
 			plugin.stopScavengerEvent();
 			return;
 		}
-		for (Player p : plugin.getServer().getOnlinePlayers()) {
-
-			if (!p.hasPermission("scavengerhunt.participate")) {
-				continue;
+		List<Player> playerList = new ArrayList<Player>();
+		for (String s : plugin.playerList) {
+			if (Bukkit.getOfflinePlayer(s).isOnline()) {
+				playerList.add(Bukkit.getPlayer(s));
 			}
-
+		}
+		for (Player p : playerList) {
 			Inventory i = p.getInventory();
 			boolean doneObjectives = true;
 			for (ItemStack item : plugin.currentItems) {
-				if (plugin.count(i, item) < item.getAmount()) {
+				if (!i.contains(item)) {
 					doneObjectives = false;
 				}
 			}

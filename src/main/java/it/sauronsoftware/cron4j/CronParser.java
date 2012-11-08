@@ -34,17 +34,14 @@ import java.util.ArrayList;
  * A parser for crontab-like formatted files and streams.
  * </p>
  * <p>
- * If you want to schedule a list of tasks declared in a crontab-like file you
- * don't need the CronParser, since you can do it by adding the file to the
- * scheduler, with the {@link Scheduler#scheduleFile(File)} method.
+ * If you want to schedule a list of tasks declared in a crontab-like file you don't need the CronParser, since you can do it by adding the file to
+ * the scheduler, with the {@link Scheduler#scheduleFile(File)} method.
  * </p>
  * <p>
- * Consider to use the CronParser if the {@link Scheduler#scheduleFile(File)}
- * method is not enough for you. In example, you may need to fetch the task list
- * from a remote source which is not representable as a {@link File} object (a
- * document on a remote server, a DBMS result set and so on). To solve the
- * problem you can implement your own {@link TaskCollector}, getting the
- * advantage of the CronParser to parse easily any crontab-like content.
+ * Consider to use the CronParser if the {@link Scheduler#scheduleFile(File)} method is not enough for you. In example, you may need to fetch the task
+ * list from a remote source which is not representable as a {@link File} object (a document on a remote server, a DBMS result set and so on). To
+ * solve the problem you can implement your own {@link TaskCollector}, getting the advantage of the CronParser to parse easily any crontab-like
+ * content.
  * </p>
  * <p>
  * You can parse a whole file/stream, but you can also parse a single line.
@@ -53,12 +50,10 @@ import java.util.ArrayList;
  * A line can be empty, can contain a comment or it can be a scheduling line.
  * </p>
  * <p>
- * A line containing no characters or a line with only space characters is
- * considered an empty line.
+ * A line containing no characters or a line with only space characters is considered an empty line.
  * </p>
  * <p>
- * A line whose first non-space character is a number sign (#) is considered a
- * comment.
+ * A line whose first non-space character is a number sign (#) is considered a comment.
  * </p>
  * <p>
  * Empty lines and comment lines are ignored by the parser.
@@ -75,21 +70,17 @@ import java.util.ArrayList;
  * </pre>
  * 
  * <ul>
- * <li><em>scheduling-pattern</em> is a valid scheduling pattern, according with
- * the definition given by the {@link SchedulingPattern} class.</li>
- * <li><em>options</em> is a list of optional informations used by cron4j to
- * prepare the task execution environment. See below for a more detailed
+ * <li><em>scheduling-pattern</em> is a valid scheduling pattern, according with the definition given by the {@link SchedulingPattern} class.</li>
+ * <li><em>options</em> is a list of optional informations used by cron4j to prepare the task execution environment. See below for a more detailed
  * description.</li>
  * <li><em>command</em> is a system valid command, such an executable call.</li>
  * <li><em>args</em> is a list of optional arguments for the command.</li>
  * </ul>
  * <p>
- * After the scheduling pattern item, other tokens in each line are space
- * separated or delimited with double quotation marks (&quot;).
+ * After the scheduling pattern item, other tokens in each line are space separated or delimited with double quotation marks (&quot;).
  * </p>
  * <p>
- * Double quotation marks delimited items can take advantage of the following
- * escape sequences:
+ * Double quotation marks delimited items can take advantage of the following escape sequences:
  * </p>
  * <ul>
  * <li>\&quot; - quotation mark</li>
@@ -100,48 +91,36 @@ import java.util.ArrayList;
  * <li>\n - new line</li>
  * <li>\r - carriage return</li>
  * <li>\t - horizontal tab</li>
- * <li>\u005c\u0075<em>four-hex-digits</em> - the character at the given unicode
- * index</li>
+ * <li>\u005c\u0075<em>four-hex-digits</em> - the character at the given unicode index</li>
  * </ul>
  * <p>
- * The <em>options</em> token collection can include one or more of the
- * following elements:
+ * The <em>options</em> token collection can include one or more of the following elements:
  * </p>
  * <ul>
- * <li>IN:<em>file-path</em> - Redirects the command standard input channel to
- * the specified file.</li>
- * <li>OUT:<em>file-path</em> - Redirects the command standard output channel to
- * the specified file.</li>
- * <li>ERR:<em>file-path</em> - Redirects the command standard error channel to
- * the specified file.</li>
- * <li>ENV:<em>name</em>=<em>value</em> - Defines an environment variable in the
- * scope of the command.</li>
- * <li>DIR:<em>directory-path</em> - Sets the path of the working directory for
- * the command. This feature is not supported if the executing JVM is less than
- * 1.3.</li>
+ * <li>IN:<em>file-path</em> - Redirects the command standard input channel to the specified file.</li>
+ * <li>OUT:<em>file-path</em> - Redirects the command standard output channel to the specified file.</li>
+ * <li>ERR:<em>file-path</em> - Redirects the command standard error channel to the specified file.</li>
+ * <li>ENV:<em>name</em>=<em>value</em> - Defines an environment variable in the scope of the command.</li>
+ * <li>DIR:<em>directory-path</em> - Sets the path of the working directory for the command. This feature is not supported if the executing JVM is
+ * less than 1.3.</li>
  * </ul>
  * <p>
- * It is also possible to schedule the invocation of a method of a Java class in
- * the scope of the parser ClassLoader. The method has to be static and it must
- * accept an array of strings as its sole argument. To invoke a method of this
- * kind the syntax is:
+ * It is also possible to schedule the invocation of a method of a Java class in the scope of the parser ClassLoader. The method has to be static and
+ * it must accept an array of strings as its sole argument. To invoke a method of this kind the syntax is:
  * </p>
  * 
  * <pre>
  * scheduling-pattern java:className#methodName [args]
  * </pre>
  * <p>
- * The <em>#methodName</em> part can be omitted: in this case the
- * <em>main(String[])</em> method will be assumed.
+ * The <em>#methodName</em> part can be omitted: in this case the <em>main(String[])</em> method will be assumed.
  * </p>
  * <p>
- * Please note that static methods are invoked within the scheduler same JVM,
- * without spawning any external process. Thus IN, OUT, ERR, ENV and DIR options
- * can't be applied.
+ * Please note that static methods are invoked within the scheduler same JVM, without spawning any external process. Thus IN, OUT, ERR, ENV and DIR
+ * options can't be applied.
  * </p>
  * <p>
- * Invalid scheduling lines are discarded without blocking the parsing
- * procedure, but an error message is printed in the application standard error
+ * Invalid scheduling lines are discarded without blocking the parsing procedure, but an error message is printed in the application standard error
  * channel.
  * </p>
  * <p>
@@ -173,15 +152,13 @@ public class CronParser {
 	 * </p>
 	 * 
 	 * <p>
-	 * The file is treated as UTF-8. If your source file is not UTF-8 encoded
-	 * establish by yourself a {@link Reader} using the right charset and pass
+	 * The file is treated as UTF-8. If your source file is not UTF-8 encoded establish by yourself a {@link Reader} using the right charset and pass
 	 * it to the {@link CronParser#parse(Reader)} method.
 	 * </p>
 	 * 
 	 * <p>
-	 * Syntax and semantics errors in the source file are not blocking. Invalid
-	 * lines are discarded, and they cause just a stack trace to be printed in
-	 * the standard error channel as a notification.
+	 * Syntax and semantics errors in the source file are not blocking. Invalid lines are discarded, and they cause just a stack trace to be printed
+	 * in the standard error channel as a notification.
 	 * </p>
 	 * 
 	 * @param file
@@ -212,21 +189,18 @@ public class CronParser {
 	 * </p>
 	 * 
 	 * <p>
-	 * Contents fetched from the URL are treated as UTF-8. If your source is not
-	 * UTF-8 encoded establish by yourself a {@link Reader} using the right
+	 * Contents fetched from the URL are treated as UTF-8. If your source is not UTF-8 encoded establish by yourself a {@link Reader} using the right
 	 * charset and pass it to the {@link CronParser#parse(Reader)} method.
 	 * </p>
 	 * 
 	 * <p>
-	 * Syntax and semantics errors in the retrieved document are not blocking.
-	 * Invalid lines are discarded, and they cause just a stack trace to be
+	 * Syntax and semantics errors in the retrieved document are not blocking. Invalid lines are discarded, and they cause just a stack trace to be
 	 * printed in the standard error channel as a notification.
 	 * </p>
 	 * 
 	 * @param url
 	 *            The URL.
-	 * @return The task table parsed from the contents fetched from the given
-	 *         URL.
+	 * @return The task table parsed from the contents fetched from the given URL.
 	 * @throws IOException
 	 *             I/O error.
 	 */
@@ -252,15 +226,13 @@ public class CronParser {
 	 * </p>
 	 * 
 	 * <p>
-	 * The stream is treated as UTF-8. If your source is not UTF-8 encoded
-	 * establish by yourself a {@link Reader} using the right charset and pass
-	 * it to the {@link CronParser#parse(Reader)} method.
+	 * The stream is treated as UTF-8. If your source is not UTF-8 encoded establish by yourself a {@link Reader} using the right charset and pass it
+	 * to the {@link CronParser#parse(Reader)} method.
 	 * </p>
 	 * 
 	 * <p>
-	 * Syntax and semantics errors in the source stream are not blocking.
-	 * Invalid lines are discarded, and they cause just a stack trace to be
-	 * printed in the standard error channel as a notification.
+	 * Syntax and semantics errors in the source stream are not blocking. Invalid lines are discarded, and they cause just a stack trace to be printed
+	 * in the standard error channel as a notification.
 	 * </p>
 	 * 
 	 * @param stream
@@ -279,9 +251,8 @@ public class CronParser {
 	 * </p>
 	 * 
 	 * <p>
-	 * Syntax and semantics errors in the source reader are not blocking.
-	 * Invalid lines are discarded, and they cause just a stack trace to be
-	 * printed in the standard error channel as a notification.
+	 * Syntax and semantics errors in the source reader are not blocking. Invalid lines are discarded, and they cause just a stack trace to be printed
+	 * in the standard error channel as a notification.
 	 * </p>
 	 * 
 	 * @param reader
@@ -313,8 +284,7 @@ public class CronParser {
 	 * Parses a crontab-like line.
 	 * 
 	 * @param table
-	 *            The table on which the parsed task will be stored, by
-	 *            side-effect.
+	 *            The table on which the parsed task will be stored, by side-effect.
 	 * @param line
 	 *            The crontab-like line.
 	 * @throws Exception
@@ -450,8 +420,7 @@ public class CronParser {
 				methodName = className.substring(sep + 1);
 				className = className.substring(0, sep);
 				if (methodName.length() == 0) {
-					throw new Exception("Invalid Java method name on line: "
-							+ line);
+					throw new Exception("Invalid Java method name on line: " + line);
 				}
 			}
 			String[] args = new String[argsList.size()];
@@ -480,11 +449,7 @@ public class CronParser {
 			if (dirString != null) {
 				dir = new File(dirString);
 				if (!dir.exists() || !dir.isDirectory()) {
-					throw new Exception(
-							"Invalid cron working directory parameter at line: "
-									+ line,
-							new FileNotFoundException(dirString
-									+ " doesn't exist or it is not a directory"));
+					throw new Exception("Invalid cron working directory parameter at line: " + line, new FileNotFoundException(dirString + " doesn't exist or it is not a directory"));
 				}
 			}
 			// Builds the task.

@@ -2,9 +2,13 @@
 
 ##1.7.1
 * Added optional globalNumOfRewards, which will select rewards disregarding their type. 0 to disable
-* Configured messages to display record names correctly
+* Configured messages to display record (Music Discs) names correctly
 * Added optional removal of objective items from inventory (defaults to false)
 * Added a message to players that logged in after a scavenger event has started
+* Added enchants to both item Objectives and Rewards
+* Riddle mode enabled again, now should support every randomized event. (Read the config.yml for more details)
+* Now requires /scavengerjoin to have a player join the event
+* Progress is now saved if you log back while the same scavenger event is running
 * Changed some classes' names
 
 ##1.7.0
@@ -19,7 +23,7 @@
 * Moved most messages to a messager class. (WIP)
 * Added real permissions to commands, won't use default anymore
 * Replaced hardcoded command names in plugin.yml "usage:" tag with its proper macro
-* If the player's inventory is full, items will be dropped on the ground next to him
+* If the player's inventory is full, items will be dropped on the ground next to him/her
 * "numOf" variables now accept 0 as a valid value (i.e. numOfMobs=0 will remove mob objectives). Use -1 to disable instead
 * Added optional globalNumOfObjectives(will add objectives disregarding their type). Stick to -1 for a disable
 * If for any reason the final number of objectives is 0, the plugin just grants free rewards to everyone

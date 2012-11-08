@@ -1,5 +1,8 @@
 package net.mysticrealms.fireworks.scavengerhunt;
 
+import it.sauronsoftware.cron4j.InvalidPatternException;
+import it.sauronsoftware.cron4j.Scheduler;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +13,8 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.milkbowl.vault.economy.Economy;
-
-import it.sauronsoftware.cron4j.InvalidPatternException;
-import it.sauronsoftware.cron4j.Scheduler;
+import net.mysticrealms.fireworks.scavengerhunt.util.ItemUtils;
+import net.mysticrealms.fireworks.scavengerhunt.util.NameRetriever;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -24,8 +26,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import net.mysticrealms.fireworks.scavengerhunt.util.NameRetriever;
 
 public class ScavengerHunt extends JavaPlugin {
 	public ScavengerMessager messager;
@@ -61,7 +61,12 @@ public class ScavengerHunt extends JavaPlugin {
 	public String schedule = "";
 	public String task;
 
+	public List<String> playerList = new ArrayList<String>();
+
 	public int taskId = -1;
+	public List<EntityType> riddleMobList = new ArrayList<EntityType>();
+	public List<String> itemRiddles = new ArrayList<String>();
+	public List<String> mobRiddles = new ArrayList<String>();
 	public List<String> riddles = new ArrayList<String>();
 
 	public synchronized Map<EntityType, Integer> getMap(String s) {
@@ -77,7 +82,7 @@ public class ScavengerHunt extends JavaPlugin {
 	}
 
 	public boolean isUsingMoney() {
-		if (moneyReward > 0) {
+		if (economy != null && moneyReward > 0) {
 			return true;
 		} else {
 			return false;
@@ -97,7 +102,9 @@ public class ScavengerHunt extends JavaPlugin {
 		items.clear();
 		rewards.clear();
 		mobs.clear();
-		riddles.clear();
+		mobRiddles.clear();
+		itemRiddles.clear();
+		riddleMobList.clear();
 
 		if (task != null) {
 			scheduler.deschedule(task);
@@ -130,8 +137,8 @@ public class ScavengerHunt extends JavaPlugin {
 
 					@Override
 					public void run() {
+						stopScavengerEvent();
 						runScavengerEvent();
-
 					}
 				});
 			} catch (InvalidPatternException e) {
@@ -139,9 +146,15 @@ public class ScavengerHunt extends JavaPlugin {
 			}
 		}
 
-		if (config.isList("riddles")) {
-			for (String i : config.getStringList("riddles")) {
-				riddles.add(i.toString());
+		if (config.isList("itemRiddles")) {
+			for (String i : config.getStringList("itemRiddles")) {
+				itemRiddles.add(i.toString());
+			}
+		}
+
+		if (config.isList("mobRiddles")) {
+			for (String i : config.getStringList("mobRiddles")) {
+				mobRiddles.add(i.toString());
 			}
 		}
 
@@ -152,6 +165,7 @@ public class ScavengerHunt extends JavaPlugin {
 					final int mobQuantity = Integer.parseInt(parts[1]);
 					final EntityType mobName = EntityType.fromName(parts[0]);
 					mobs.put(mobName, mobQuantity);
+					riddleMobList.add(mobName);
 				} catch (Exception e) {
 					return false;
 				}
@@ -204,21 +218,9 @@ public class ScavengerHunt extends JavaPlugin {
 		if (config.isList("items")) {
 			for (Object i : config.getList("items", new ArrayList<String>())) {
 				if (i instanceof String) {
-					final String[] parts = ((String) i).split(" ");
-					final int[] intParts = new int[parts.length];
-					for (int e = 0; e < parts.length; e++) {
-						try {
-							intParts[e] = Integer.parseInt(parts[e]);
-						} catch (final NumberFormatException exception) {
-							return false;
-						}
-					}
-					if (parts.length == 1) {
-						items.add(new ItemStack(intParts[0], 1));
-					} else if (parts.length == 2) {
-						items.add(new ItemStack(intParts[0], intParts[1]));
-					} else if (parts.length == 3) {
-						items.add(new ItemStack(intParts[0], intParts[1], (short) intParts[2]));
+					ItemStack result = ItemUtils.parseItem(i.toString());
+					if (result != null) {
+						items.add(result);
 					}
 				} else {
 					return false;
@@ -230,21 +232,9 @@ public class ScavengerHunt extends JavaPlugin {
 		if (config.isList("rewards")) {
 			for (Object i : config.getList("rewards", new ArrayList<String>())) {
 				if (i instanceof String) {
-					final String[] parts = ((String) i).split(" ");
-					final int[] intParts = new int[parts.length];
-					for (int e = 0; e < parts.length; e++) {
-						try {
-							intParts[e] = Integer.parseInt(parts[e]);
-						} catch (final NumberFormatException exception) {
-							return false;
-						}
-					}
-					if (parts.length == 1) {
-						rewards.add(new ItemStack(intParts[0], 1));
-					} else if (parts.length == 2) {
-						rewards.add(new ItemStack(intParts[0], intParts[1]));
-					} else if (parts.length == 3) {
-						rewards.add(new ItemStack(intParts[0], intParts[1], (short) intParts[2]));
+					ItemStack result = ItemUtils.parseItem(i.toString());
+					if (result != null) {
+						rewards.add(result);
 					}
 				} else {
 					return false;
@@ -271,10 +261,12 @@ public class ScavengerHunt extends JavaPlugin {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("scavengerstart")) {
 			if (sender.hasPermission("scavengerhunt.start")) {
+				if (isRunning) {
+					stopScavengerEvent();
+				}
 				runScavengerEvent();
 			}
-		}
-		if (cmd.getName().equalsIgnoreCase("scavengerstop")) {
+		} else if (cmd.getName().equalsIgnoreCase("scavengerstop")) {
 			if (sender.hasPermission("scavengerhunt.stop")) {
 				if (isRunning) {
 					stopScavengerEvent();
@@ -282,21 +274,17 @@ public class ScavengerHunt extends JavaPlugin {
 					sender.sendMessage(ChatColor.DARK_RED + "No scavenger event is currently running.");
 				}
 			}
-		}
-		if (cmd.getName().equalsIgnoreCase("scavengeritems")) {
+		} else if (cmd.getName().equalsIgnoreCase("scavengeritems")) {
 			if (sender.hasPermission("scavengerhunt.items")) {
 				messager.listScavengerEventItems(sender);
 			}
-		}
-		if (cmd.getName().equalsIgnoreCase("scavengerrewards")) {
+		} else if (cmd.getName().equalsIgnoreCase("scavengerrewards")) {
 			if (sender.hasPermission("scavengerhunt.rewards")) {
 				messager.listScavengerEventRewards(sender);
 			}
-		}
-		if (cmd.getName().equalsIgnoreCase("scavengerhelp")) {
+		} else if (cmd.getName().equalsIgnoreCase("scavengerhelp")) {
 			messager.listHelp(sender);
-		}
-		if (cmd.getName().equalsIgnoreCase("scavengerreload")) {
+		} else if (cmd.getName().equalsIgnoreCase("scavengerreload")) {
 			if (sender.hasPermission("scavengerhunt.reload")) {
 				if (isRunning) {
 					stopScavengerEvent();
@@ -305,6 +293,18 @@ public class ScavengerHunt extends JavaPlugin {
 					sender.sendMessage(ChatColor.GOLD + "Config reloaded!");
 				} else {
 					sender.sendMessage(ChatColor.GOLD + "Config failed to reload!");
+				}
+			}
+		} else if (cmd.getName().equalsIgnoreCase("scavengerjoin")) {
+			if (isRunning) {
+				if (sender.hasPermission("scavengerhunt.participate")) {
+					if (sender instanceof Player) {
+						Player p = ((Player) sender).getPlayer();
+						playerList.add(p.getDisplayName());
+						messager.displayJoin(p);
+					} else {
+						getLogger().info("This command can only be issued by players!");
+					}
 				}
 			}
 		}
@@ -321,6 +321,8 @@ public class ScavengerHunt extends JavaPlugin {
 		setupEconomy();
 		NameRetriever.setPotionMap();
 		NameRetriever.setDiscMap();
+		NameRetriever.setEnchantMap();
+		ScavengerSaver.plugin = this;
 		if (!loadConfig()) {
 			getLogger().severe("Something is wrong with the config! Disabling!");
 			setEnabled(false);
@@ -349,12 +351,25 @@ public class ScavengerHunt extends JavaPlugin {
 		playerMobs.clear();
 		currentMobs.clear();
 		currentRewards.clear();
+		riddles.clear();
+		playerList.clear();
+
+		// saver
+		ScavengerSaver.newScavengerID();
 
 		moneyReward = moneyBackup;
 		expReward = expBackup;
 
-		// disabled for this version
-		riddleMode = false;
+		if (riddleMode) {
+			if (mobRiddles.size() != mobs.size()) {
+				getLogger().info("Number of mobRiddles and mobs listed mismatch. Cannot use riddleMode.");
+				riddleMode = false;
+			}
+			if (itemRiddles.size() != items.size()) {
+				getLogger().info("Number of itemRiddles and items listed mismatch. Cannot use riddleMode.");
+				riddleMode = false;
+			}
+		}
 
 		Random r = new Random();
 		if (globalNumOfObjectives >= 0) {
@@ -421,7 +436,12 @@ public class ScavengerHunt extends JavaPlugin {
 			currentItems = clone;
 		} else {
 			for (int i = 0; i < numOfItems && !clone.isEmpty(); i++) {
-				currentItems.add(clone.remove(r.nextInt(clone.size())));
+				ItemStack entry = clone.remove(r.nextInt(clone.size()));
+				currentItems.add(entry);
+				if (riddleMode) {
+					int index = items.indexOf(entry);
+					riddles.add(itemRiddles.get(index));
+				}
 			}
 		}
 
@@ -429,6 +449,10 @@ public class ScavengerHunt extends JavaPlugin {
 		for (int i = 0; (numOfMobs < 0 || i < numOfMobs) && !mobClone.isEmpty(); i++) {
 			Map.Entry<EntityType, Integer> entry = mobClone.remove(r.nextInt(mobClone.size()));
 			currentMobs.put(entry.getKey(), entry.getValue());
+			if (riddleMode) {
+				int index = riddleMobList.indexOf(entry.getKey());
+				riddles.add(mobRiddles.get(index));
+			}
 		}
 
 		messager.displayStart();

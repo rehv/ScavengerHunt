@@ -22,8 +22,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 /**
- * This kind of task can be used to invoke a static method of a Java class. The
- * specified method must accept an array of strings as its sole argument.
+ * This kind of task can be used to invoke a static method of a Java class. The specified method must accept an array of strings as its sole argument.
  * 
  * @author Carlo Pelliccia
  * @since 2.2
@@ -41,8 +40,7 @@ class StaticMethodTask extends Task {
 	private String methodName;
 
 	/**
-	 * Arguments for the static method. The array can be empty, but it can't be
-	 * null.
+	 * Arguments for the static method. The array can be empty, but it can't be null.
 	 */
 	private String[] args;
 
@@ -52,11 +50,9 @@ class StaticMethodTask extends Task {
 	 * @param className
 	 *            The Java class name.
 	 * @param methodName
-	 *            The name of the static method of the class that has to be
-	 *            launched.
+	 *            The name of the static method of the class that has to be launched.
 	 * @param args
-	 *            Arguments for the static method. The array can be empty, but
-	 *            it can't be null.
+	 *            Arguments for the static method. The array can be empty, but it can't be null.
 	 */
 	public StaticMethodTask(String className, String methodName, String[] args) {
 		this.className = className;
@@ -65,8 +61,7 @@ class StaticMethodTask extends Task {
 	}
 
 	/**
-	 * Implements {@link Task#execute(TaskExecutionContext)}. It uses Java
-	 * reflection to load the given class and call the given static method with
+	 * Implements {@link Task#execute(TaskExecutionContext)}. It uses Java reflection to load the given class and call the given static method with
 	 * the supplied arguments.
 	 */
 	public void execute(TaskExecutionContext context) throws RuntimeException {
@@ -83,20 +78,17 @@ class StaticMethodTask extends Task {
 			Class[] argTypes = new Class[] { String[].class };
 			methodObject = classObject.getMethod(methodName, argTypes);
 		} catch (NoSuchMethodException e) {
-			throw new RuntimeException("Cannot find a " + methodName
-					+ "(String[]) method in class " + className, e);
+			throw new RuntimeException("Cannot find a " + methodName + "(String[]) method in class " + className, e);
 		}
 		int modifiers = methodObject.getModifiers();
 		if (!Modifier.isStatic(modifiers)) {
-			throw new RuntimeException("The method " + methodName
-					+ "(String[]) of the class " + className + " is not static");
+			throw new RuntimeException("The method " + methodName + "(String[]) of the class " + className + " is not static");
 		}
 		// Invokes the method.
 		try {
 			methodObject.invoke(null, new Object[] { args });
 		} catch (Exception e) {
-			throw new RuntimeException("Failed to invoke the static method "
-					+ methodName + "(String[]) of the class " + className);
+			throw new RuntimeException("Failed to invoke the static method " + methodName + "(String[]) of the class " + className);
 		}
 	}
 

@@ -1,5 +1,5 @@
 name: ScavengerHunt
-version: 1.7.0
+version: 1.7.1-SNAPSHOT
 authors: [Fireworks, Zonedabone, Rehv]
 softdepend: ['Vault']
 
@@ -26,6 +26,10 @@ commands:
     usage: /<command>
     description: Reload configuration.
     permission: scavengerhunt.reload
+  scavengerjoin:
+    usage: /<command>
+    description: Join current scavenger event.
+    permission: scavengerhunt.participate
   scavengerhelp:
     usage: /<command>
     description: Displays help menu.

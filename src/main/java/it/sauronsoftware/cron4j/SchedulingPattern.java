@@ -27,46 +27,33 @@ import java.util.TimeZone;
 
 /**
  * <p>
- * A UNIX crontab-like pattern is a string split in five space separated parts.
- * Each part is intented as:
+ * A UNIX crontab-like pattern is a string split in five space separated parts. Each part is intented as:
  * </p>
  * <ol>
- * <li><strong>Minutes sub-pattern</strong>. During which minutes of the hour
- * should the task been launched? The values range is from 0 to 59.</li>
- * <li><strong>Hours sub-pattern</strong>. During which hours of the day should
- * the task been launched? The values range is from 0 to 23.</li>
- * <li><strong>Days of month sub-pattern</strong>. During which days of the
- * month should the task been launched? The values range is from 1 to 31. The
+ * <li><strong>Minutes sub-pattern</strong>. During which minutes of the hour should the task been launched? The values range is from 0 to 59.</li>
+ * <li><strong>Hours sub-pattern</strong>. During which hours of the day should the task been launched? The values range is from 0 to 23.</li>
+ * <li><strong>Days of month sub-pattern</strong>. During which days of the month should the task been launched? The values range is from 1 to 31. The
  * special value L can be used to recognize the last day of month.</li>
- * <li><strong>Months sub-pattern</strong>. During which months of the year
- * should the task been launched? The values range is from 1 (January) to 12
- * (December), otherwise this sub-pattern allows the aliases &quot;jan&quot;,
- * &quot;feb&quot;, &quot;mar&quot;, &quot;apr&quot;, &quot;may&quot;,
- * &quot;jun&quot;, &quot;jul&quot;, &quot;aug&quot;, &quot;sep&quot;,
- * &quot;oct&quot;, &quot;nov&quot; and &quot;dec&quot;.</li>
- * <li><strong>Days of week sub-pattern</strong>. During which days of the week
- * should the task been launched? The values range is from 0 (Sunday) to 6
- * (Saturday), otherwise this sub-pattern allows the aliases &quot;sun&quot;,
- * &quot;mon&quot;, &quot;tue&quot;, &quot;wed&quot;, &quot;thu&quot;,
+ * <li><strong>Months sub-pattern</strong>. During which months of the year should the task been launched? The values range is from 1 (January) to 12
+ * (December), otherwise this sub-pattern allows the aliases &quot;jan&quot;, &quot;feb&quot;, &quot;mar&quot;, &quot;apr&quot;, &quot;may&quot;,
+ * &quot;jun&quot;, &quot;jul&quot;, &quot;aug&quot;, &quot;sep&quot;, &quot;oct&quot;, &quot;nov&quot; and &quot;dec&quot;.</li>
+ * <li><strong>Days of week sub-pattern</strong>. During which days of the week should the task been launched? The values range is from 0 (Sunday) to
+ * 6 (Saturday), otherwise this sub-pattern allows the aliases &quot;sun&quot;, &quot;mon&quot;, &quot;tue&quot;, &quot;wed&quot;, &quot;thu&quot;,
  * &quot;fri&quot; and &quot;sat&quot;.</li>
  * </ol>
  * <p>
- * The star wildcard character is also admitted, indicating &quot;every minute
- * of the hour&quot;, &quot;every hour of the day&quot;, &quot;every day of the
- * month&quot;, &quot;every month of the year&quot; and &quot;every day of the
- * week&quot;, according to the sub-pattern in which it is used.
+ * The star wildcard character is also admitted, indicating &quot;every minute of the hour&quot;, &quot;every hour of the day&quot;, &quot;every day
+ * of the month&quot;, &quot;every month of the year&quot; and &quot;every day of the week&quot;, according to the sub-pattern in which it is used.
  * </p>
  * <p>
- * Once the scheduler is started, a task will be launched when the five parts in
- * its scheduling pattern will be true at the same time.
+ * Once the scheduler is started, a task will be launched when the five parts in its scheduling pattern will be true at the same time.
  * </p>
  * <p>
  * Some examples:
  * </p>
  * <p>
  * <strong>5 * * * *</strong><br />
- * This pattern causes a task to be launched once every hour, at the begin of
- * the fifth minute (00:05, 01:05, 02:05 etc.).
+ * This pattern causes a task to be launched once every hour, at the begin of the fifth minute (00:05, 01:05, 02:05 etc.).
  * </p>
  * <p>
  * <strong>* * * * *</strong><br />
@@ -74,21 +61,18 @@ import java.util.TimeZone;
  * </p>
  * <p>
  * <strong>* 12 * * Mon</strong><br />
- * This pattern causes a task to be launched every minute during the 12th hour
- * of Monday.
+ * This pattern causes a task to be launched every minute during the 12th hour of Monday.
  * </p>
  * <p>
  * <strong>* 12 16 * Mon</strong><br />
- * This pattern causes a task to be launched every minute during the 12th hour
- * of Monday, 16th, but only if the day is the 16th of the month.
+ * This pattern causes a task to be launched every minute during the 12th hour of Monday, 16th, but only if the day is the 16th of the month.
  * </p>
  * <p>
  * Every sub-pattern can contain two or more comma separated values.
  * </p>
  * <p>
  * <strong>59 11 * * 1,2,3,4,5</strong><br />
- * This pattern causes a task to be launched at 11:59AM on Monday, Tuesday,
- * Wednesday, Thursday and Friday.
+ * This pattern causes a task to be launched at 11:59AM on Monday, Tuesday, Wednesday, Thursday and Friday.
  * </p>
  * <p>
  * Values intervals are admitted and defined using the minus character.
@@ -98,51 +82,42 @@ import java.util.TimeZone;
  * This pattern is equivalent to the previous one.
  * </p>
  * <p>
- * The slash character can be used to identify step values within a range. It
- * can be used both in the form <em>*&#47;c</em> and <em>a-b/c</em>. The
- * subpattern is matched every <em>c</em> values of the range
- * <em>0,maxvalue</em> or <em>a-b</em>.
+ * The slash character can be used to identify step values within a range. It can be used both in the form <em>*&#47;c</em> and <em>a-b/c</em>. The
+ * subpattern is matched every <em>c</em> values of the range <em>0,maxvalue</em> or <em>a-b</em>.
  * </p>
  * <p>
  * <strong>*&#47;5 * * * *</strong><br />
- * This pattern causes a task to be launched every 5 minutes (0:00, 0:05, 0:10,
- * 0:15 and so on).
+ * This pattern causes a task to be launched every 5 minutes (0:00, 0:05, 0:10, 0:15 and so on).
  * </p>
  * <p>
  * <strong>3-18&#47;5 * * * *</strong><br />
- * This pattern causes a task to be launched every 5 minutes starting from the
- * third minute of the hour, up to the 18th (0:03, 0:08, 0:13, 0:18, 1:03, 1:08
- * and so on).
+ * This pattern causes a task to be launched every 5 minutes starting from the third minute of the hour, up to the 18th (0:03, 0:08, 0:13, 0:18, 1:03,
+ * 1:08 and so on).
  * </p>
  * <p>
  * <strong>*&#47;15 9-17 * * *</strong><br />
- * This pattern causes a task to be launched every 15 minutes between the 9th
- * and 17th hour of the day (9:00, 9:15, 9:30, 9:45 and so on... note that the
- * last execution will be at 17:45).
+ * This pattern causes a task to be launched every 15 minutes between the 9th and 17th hour of the day (9:00, 9:15, 9:30, 9:45 and so on... note that
+ * the last execution will be at 17:45).
  * </p>
  * <p>
  * All the fresh described syntax rules can be used together.
  * </p>
  * <p>
  * <strong>* 12 10-16&#47;2 * *</strong><br />
- * This pattern causes a task to be launched every minute during the 12th hour
- * of the day, but only if the day is the 10th, the 12th, the 14th or the 16th
- * of the month.
+ * This pattern causes a task to be launched every minute during the 12th hour of the day, but only if the day is the 10th, the 12th, the 14th or the
+ * 16th of the month.
  * </p>
  * <p>
  * <strong>* 12 1-15,17,20-25 * *</strong><br />
- * This pattern causes a task to be launched every minute during the 12th hour
- * of the day, but the day of the month must be between the 1st and the 15th,
- * the 20th and the 25, or at least it must be the 17th.
+ * This pattern causes a task to be launched every minute during the 12th hour of the day, but the day of the month must be between the 1st and the
+ * 15th, the 20th and the 25, or at least it must be the 17th.
  * </p>
  * <p>
- * Finally cron4j lets you combine more scheduling patterns into one, with the
- * pipe character:
+ * Finally cron4j lets you combine more scheduling patterns into one, with the pipe character:
  * </p>
  * <p>
  * <strong>0 5 * * *|8 10 * * *|22 17 * * *</strong><br />
- * This pattern causes a task to be launched every day at 05:00, 10:08 and
- * 17:22.
+ * This pattern causes a task to be launched every day at 05:00, 10:08 and 17:22.
  * </p>
  * 
  * @author Carlo Pelliccia
@@ -180,8 +155,7 @@ public class SchedulingPattern {
 	 * 
 	 * @param schedulingPattern
 	 *            The pattern to validate.
-	 * @return true if the given string represents a valid scheduling pattern;
-	 *         false otherwise.
+	 * @return true if the given string represents a valid scheduling pattern; false otherwise.
 	 */
 	public static boolean validate(String schedulingPattern) {
 		try {
@@ -250,39 +224,27 @@ public class SchedulingPattern {
 			try {
 				minuteMatchers.add(buildValueMatcher(st2.nextToken(), MINUTE_VALUE_PARSER));
 			} catch (Exception e) {
-				throw new InvalidPatternException("invalid pattern \""
-						+ localPattern + "\". Error parsing minutes field: "
-						+ e.getMessage() + ".");
+				throw new InvalidPatternException("invalid pattern \"" + localPattern + "\". Error parsing minutes field: " + e.getMessage() + ".");
 			}
 			try {
 				hourMatchers.add(buildValueMatcher(st2.nextToken(), HOUR_VALUE_PARSER));
 			} catch (Exception e) {
-				throw new InvalidPatternException("invalid pattern \""
-						+ localPattern + "\". Error parsing hours field: "
-						+ e.getMessage() + ".");
+				throw new InvalidPatternException("invalid pattern \"" + localPattern + "\". Error parsing hours field: " + e.getMessage() + ".");
 			}
 			try {
 				dayOfMonthMatchers.add(buildValueMatcher(st2.nextToken(), DAY_OF_MONTH_VALUE_PARSER));
 			} catch (Exception e) {
-				throw new InvalidPatternException("invalid pattern \""
-						+ localPattern
-						+ "\". Error parsing days of month field: "
-						+ e.getMessage() + ".");
+				throw new InvalidPatternException("invalid pattern \"" + localPattern + "\". Error parsing days of month field: " + e.getMessage() + ".");
 			}
 			try {
 				monthMatchers.add(buildValueMatcher(st2.nextToken(), MONTH_VALUE_PARSER));
 			} catch (Exception e) {
-				throw new InvalidPatternException("invalid pattern \""
-						+ localPattern + "\". Error parsing months field: "
-						+ e.getMessage() + ".");
+				throw new InvalidPatternException("invalid pattern \"" + localPattern + "\". Error parsing months field: " + e.getMessage() + ".");
 			}
 			try {
 				dayOfWeekMatchers.add(buildValueMatcher(st2.nextToken(), DAY_OF_WEEK_VALUE_PARSER));
 			} catch (Exception e) {
-				throw new InvalidPatternException("invalid pattern \""
-						+ localPattern
-						+ "\". Error parsing days of week field: "
-						+ e.getMessage() + ".");
+				throw new InvalidPatternException("invalid pattern \"" + localPattern + "\". Error parsing days of week field: " + e.getMessage() + ".");
 			}
 			matcherSize++;
 		}
@@ -299,8 +261,7 @@ public class SchedulingPattern {
 	 * @throws Exception
 	 *             If the supplied pattern part is not valid.
 	 */
-	private ValueMatcher buildValueMatcher(String str, ValueParser parser)
-			throws Exception {
+	private ValueMatcher buildValueMatcher(String str, ValueParser parser) throws Exception {
 		if (str.length() == 1 && str.equals("*")) {
 			return new AlwaysTrueValueMatcher();
 		}
@@ -312,9 +273,7 @@ public class SchedulingPattern {
 			try {
 				local = parseListElement(element, parser);
 			} catch (Exception e) {
-				throw new Exception("invalid field \"" + str
-						+ "\", invalid element \"" + element + "\", "
-						+ e.getMessage());
+				throw new Exception("invalid field \"" + str + "\", invalid element \"" + element + "\", " + e.getMessage());
 			}
 			for (Iterator i = local.iterator(); i.hasNext();) {
 				Object value = i.next();
@@ -344,8 +303,7 @@ public class SchedulingPattern {
 	 * @throws Exception
 	 *             If the supplied pattern part is not valid.
 	 */
-	private ArrayList parseListElement(String str, ValueParser parser)
-			throws Exception {
+	private ArrayList parseListElement(String str, ValueParser parser) throws Exception {
 		StringTokenizer st = new StringTokenizer(str, "/");
 		int size = st.countTokens();
 		if (size < 1 || size > 2) {
@@ -389,8 +347,7 @@ public class SchedulingPattern {
 	 * @throws Exception
 	 *             If the supplied pattern part is not valid.
 	 */
-	private ArrayList parseRange(String str, ValueParser parser)
-			throws Exception {
+	private ArrayList parseRange(String str, ValueParser parser) throws Exception {
 		if (str.equals("*")) {
 			int min = parser.getMinValue();
 			int max = parser.getMaxValue();
@@ -410,8 +367,7 @@ public class SchedulingPattern {
 		try {
 			v1 = parser.parse(v1Str);
 		} catch (Exception e) {
-			throw new Exception("invalid value \"" + v1Str + "\", "
-					+ e.getMessage());
+			throw new Exception("invalid value \"" + v1Str + "\", " + e.getMessage());
 		}
 		if (size == 1) {
 			ArrayList values = new ArrayList();
@@ -423,8 +379,7 @@ public class SchedulingPattern {
 			try {
 				v2 = parser.parse(v2Str);
 			} catch (Exception e) {
-				throw new Exception("invalid value \"" + v2Str + "\", "
-						+ e.getMessage());
+				throw new Exception("invalid value \"" + v2Str + "\", " + e.getMessage());
 			}
 			ArrayList values = new ArrayList();
 			if (v1 < v2) {
@@ -449,8 +404,7 @@ public class SchedulingPattern {
 	}
 
 	/**
-	 * This methods returns true if the given timestamp (expressed as a UNIX-era
-	 * millis value) matches the pattern, according to the given time zone.
+	 * This methods returns true if the given timestamp (expressed as a UNIX-era millis value) matches the pattern, according to the given time zone.
 	 * 
 	 * @param timezone
 	 *            A time zone.
@@ -474,13 +428,8 @@ public class SchedulingPattern {
 			ValueMatcher dayOfMonthMatcher = (ValueMatcher) dayOfMonthMatchers.get(i);
 			ValueMatcher monthMatcher = (ValueMatcher) monthMatchers.get(i);
 			ValueMatcher dayOfWeekMatcher = (ValueMatcher) dayOfWeekMatchers.get(i);
-			boolean eval = minuteMatcher.match(minute)
-					&& hourMatcher.match(hour)
-					&& ((dayOfMonthMatcher instanceof DayOfMonthValueMatcher) ? ((DayOfMonthValueMatcher) dayOfMonthMatcher)
-							.match(dayOfMonth, month, gc.isLeapYear(year))
-							: dayOfMonthMatcher.match(dayOfMonth))
-					&& monthMatcher.match(month)
-					&& dayOfWeekMatcher.match(dayOfWeek);
+			boolean eval = minuteMatcher.match(minute) && hourMatcher.match(hour) && ((dayOfMonthMatcher instanceof DayOfMonthValueMatcher) ? ((DayOfMonthValueMatcher) dayOfMonthMatcher).match(dayOfMonth, month, gc.isLeapYear(year)) : dayOfMonthMatcher.match(dayOfMonth))
+					&& monthMatcher.match(month) && dayOfWeekMatcher.match(dayOfWeek);
 			if (eval) {
 				return true;
 			}
@@ -489,9 +438,8 @@ public class SchedulingPattern {
 	}
 
 	/**
-	 * This methods returns true if the given timestamp (expressed as a UNIX-era
-	 * millis value) matches the pattern, according to the system default time
-	 * zone.
+	 * This methods returns true if the given timestamp (expressed as a UNIX-era millis value) matches the pattern, according to the system default
+	 * time zone.
 	 * 
 	 * @param millis
 	 *            The timestamp, as a UNIX-era millis value.
@@ -523,8 +471,7 @@ public class SchedulingPattern {
 	 * @throws Exception
 	 *             If the expressed values doesn't match any alias.
 	 */
-	private static int parseAlias(String value, String[] aliases, int offset)
-			throws Exception {
+	private static int parseAlias(String value, String[] aliases, int offset) throws Exception {
 		for (int i = 0; i < aliases.length; i++) {
 			if (aliases[i].equalsIgnoreCase(value)) {
 				return offset + i;
@@ -683,8 +630,7 @@ public class SchedulingPattern {
 		/**
 		 * Months aliases.
 		 */
-		private static String[] ALIASES = { "jan", "feb", "mar", "apr", "may",
-				"jun", "jul", "aug", "sep", "oct", "nov", "dec" };
+		private static String[] ALIASES = { "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
 
 		/**
 		 * Builds the months value parser.

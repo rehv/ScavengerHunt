@@ -20,8 +20,7 @@ package it.sauronsoftware.cron4j;
 
 /**
  * <p>
- * This kind of exception is thrown if an invalid scheduling pattern is
- * encountered by the scheduler.
+ * This kind of exception is thrown if an invalid scheduling pattern is encountered by the scheduler.
  * </p>
  * 
  * @author Carlo Pelliccia

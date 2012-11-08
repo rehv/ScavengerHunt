@@ -2,7 +2,6 @@ package net.mysticrealms.fireworks.scavengerhunt;
 
 import java.util.Map;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -42,19 +41,23 @@ public class ScavengerListener implements Listener {
 			}
 			Map<EntityType, Integer> map = plugin.getMap(p.getName());
 			map.put(event.getEntity().getType(), map.get(event.getEntity().getType()) + 1);
+			ScavengerSaver.savePlayer(p);
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerLogin(PlayerJoinEvent event) {
 		Player p = event.getPlayer();
-		long timeDiff = plugin.end - System.currentTimeMillis();
-		String timeLeft = ScavengerMessager.timeFormatter((int)((timeDiff)/1000));
 		if (plugin.isRunning) {
-			p.sendMessage(ChatColor.DARK_RED + "There is a Scavenger Hunt happening!");
-			p.sendMessage(ChatColor.DARK_RED + "You have: " + ChatColor.GOLD + timeLeft + "!");
-			p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerItems" + ChatColor.DARK_RED + " to view objectives.");
-			p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerRewards" + ChatColor.DARK_RED + " to view rewards.");
+			if (!plugin.playerList.contains(p.getDisplayName())) {
+				plugin.messager.displayJoinCurrent(p);
+			} else if (!plugin.currentMobs.isEmpty()) {
+				if (ScavengerSaver.loadPlayer(p)) {
+					plugin.messager.displayRejoin(p);
+				} else {
+					plugin.messager.displayRejoinFailed(p);
+				}
+			}
 		}
 	}
 }

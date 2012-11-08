@@ -19,8 +19,7 @@
 package it.sauronsoftware.cron4j;
 
 /**
- * A TaskExecutorListener is notified with events from a {@link TaskExecutor}.
- * You can add listeners to a TaskExecutor by calling its
+ * A TaskExecutorListener is notified with events from a {@link TaskExecutor}. You can add listeners to a TaskExecutor by calling its
  * {@link TaskExecutor#addTaskExecutorListener(TaskExecutorListener)} method.
  * 
  * @see TaskExecutor
@@ -54,14 +53,12 @@ public interface TaskExecutorListener {
 	public void executionStopping(TaskExecutor executor);
 
 	/**
-	 * Called at execution end. If the execution has failed due to an error, the
-	 * encountered exception is reported.
+	 * Called at execution end. If the execution has failed due to an error, the encountered exception is reported.
 	 * 
 	 * @param executor
 	 *            The source executor.
 	 * @param exception
-	 *            If the execution has been terminated due to an error, this is
-	 *            the encountered exception; otherwise the parameter is null.
+	 *            If the execution has been terminated due to an error, this is the encountered exception; otherwise the parameter is null.
 	 */
 	public void executionTerminated(TaskExecutor executor, Throwable exception);
 
@@ -83,7 +80,6 @@ public interface TaskExecutorListener {
 	 * @param completenessValue
 	 *            The new completeness value.
 	 */
-	public void completenessValueChanged(TaskExecutor executor,
-			double completenessValue);
+	public void completenessValueChanged(TaskExecutor executor, double completenessValue);
 
 }

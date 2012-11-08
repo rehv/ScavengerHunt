@@ -20,9 +20,8 @@ package it.sauronsoftware.cron4j;
 
 /**
  * <p>
- * TimeThreads are used by {@link Scheduler} instances. A TimerThread spends
- * most of the time sleeping. It wakes up every minute and it requests to the
- * scheduler the spawning of a {@link LauncherThread}.
+ * TimeThreads are used by {@link Scheduler} instances. A TimerThread spends most of the time sleeping. It wakes up every minute and it requests to
+ * the scheduler the spawning of a {@link LauncherThread}.
  * </p>
  * 
  * @author Carlo Pelliccia
@@ -63,17 +62,14 @@ class TimerThread extends Thread {
 	}
 
 	/**
-	 * It has been reported that the {@link Thread#sleep(long)} method sometimes
-	 * exits before the requested time has passed. This one offers an
-	 * alternative that sometimes could sleep a few millis more than requested,
-	 * but never less.
+	 * It has been reported that the {@link Thread#sleep(long)} method sometimes exits before the requested time has passed. This one offers an
+	 * alternative that sometimes could sleep a few millis more than requested, but never less.
 	 * 
 	 * @param millis
 	 *            The length of time to sleep in milliseconds.
 	 * @throws InterruptedException
-	 *             If another thread has interrupted the current thread. The
-	 *             <i>interrupted status</i> of the current thread is cleared
-	 *             when this exception is thrown.
+	 *             If another thread has interrupted the current thread. The <i>interrupted status</i> of the current thread is cleared when this
+	 *             exception is thrown.
 	 * @see Thread#sleep(long)
 	 */
 	private void safeSleep(long millis) throws InterruptedException {

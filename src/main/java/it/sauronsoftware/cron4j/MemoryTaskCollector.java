@@ -109,8 +109,7 @@ class MemoryTaskCollector implements TaskCollector {
 	 * 
 	 * @param id
 	 *            The ID of the scheduled couple.
-	 * @return The task with the specified assigned ID, or null if it doesn't
-	 *         exist.
+	 * @return The task with the specified assigned ID, or null if it doesn't exist.
 	 */
 	public synchronized Task getTask(String id) {
 		int index = ids.indexOf(id);
@@ -126,8 +125,7 @@ class MemoryTaskCollector implements TaskCollector {
 	 * 
 	 * @param id
 	 *            The ID of the scheduled couple.
-	 * @return The scheduling pattern with the specified assigned ID, or null if
-	 *         it doesn't exist.
+	 * @return The scheduling pattern with the specified assigned ID, or null if it doesn't exist.
 	 */
 	public synchronized SchedulingPattern getSchedulingPattern(String id) {
 		int index = ids.indexOf(id);

@@ -24,8 +24,7 @@ package it.sauronsoftware.cron4j;
  * </p>
  * 
  * <p>
- * The class lets you validate a scheduling pattern before/without using it with
- * a {@link Scheduler} instance. Simply call:
+ * The class lets you validate a scheduling pattern before/without using it with a {@link Scheduler} instance. Simply call:
  * </p>
  * 
  * <pre>
@@ -46,8 +45,7 @@ public class SchedulingPatternValidator {
 	 * 
 	 * @param schedulingPattern
 	 *            The pattern to validate.
-	 * @return true if the given string represents a valid scheduling pattern;
-	 *         false otherwise.
+	 * @return true if the given string represents a valid scheduling pattern; false otherwise.
 	 * @deprecated Use {@link SchedulingPattern#validate(String)}.
 	 */
 	public static boolean validate(String schedulingPattern) {

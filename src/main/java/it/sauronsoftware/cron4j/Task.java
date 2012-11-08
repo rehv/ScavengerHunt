@@ -26,24 +26,16 @@ package it.sauronsoftware.cron4j;
  * Developers can extends this abstract class to build their own tasks.
  * </p>
  * <p>
- * Extending Task means, above all, implementing the
- * {@link Task#execute(TaskExecutionContext)} method. Within this method the
- * task must perform its operation. If the <em>execute()</em> method returns
- * regularly then the execution is considered to be successfully completed. If
- * <em>execute()</em> dies throwing a {@link RuntimeException} then the task
- * execution is considered to be failed. The supplied parameter, which is a
- * {@link TaskExecutionContext} instance, helps the developer in integrating his
- * task with the scheduler executor. Through the context the developer can check
- * if the execution has been paused or stopped, and he can also push back some
- * status informations by calling
- * {@link TaskExecutionContext#setCompleteness(double)} and
- * {@link TaskExecutionContext#setStatusMessage(String)}.
+ * Extending Task means, above all, implementing the {@link Task#execute(TaskExecutionContext)} method. Within this method the task must perform its
+ * operation. If the <em>execute()</em> method returns regularly then the execution is considered to be successfully completed. If <em>execute()</em>
+ * dies throwing a {@link RuntimeException} then the task execution is considered to be failed. The supplied parameter, which is a
+ * {@link TaskExecutionContext} instance, helps the developer in integrating his task with the scheduler executor. Through the context the developer
+ * can check if the execution has been paused or stopped, and he can also push back some status informations by calling
+ * {@link TaskExecutionContext#setCompleteness(double)} and {@link TaskExecutionContext#setStatusMessage(String)}.
  * </p>
  * <p>
- * If the custom task supports pausing, stopping and/or tracking, that should be
- * notified by overriding {@link Task#canBePaused()},
- * {@link Task#canBeStopped()}, {@link Task#supportsCompletenessTracking()}
- * and/or {@link Task#supportsStatusTracking()}.
+ * If the custom task supports pausing, stopping and/or tracking, that should be notified by overriding {@link Task#canBePaused()},
+ * {@link Task#canBeStopped()}, {@link Task#supportsCompletenessTracking()} and/or {@link Task#supportsStatusTracking()}.
  * </p>
  * 
  * @author Carlo Pelliccia
@@ -79,12 +71,9 @@ public abstract class Task {
 	 * Default implementation returns <em>false</em>.
 	 * </p>
 	 * <p>
-	 * Task developers can override this method to let it return a <em>true</em>
-	 * value, and at the same time they have to implement the
-	 * {@link Task#execute(TaskExecutionContext)} method, so that pause requests
-	 * are really handled. This can be done calling regularly the
-	 * {@link TaskExecutionContext#pauseIfRequested()} method during the task
-	 * execution.
+	 * Task developers can override this method to let it return a <em>true</em> value, and at the same time they have to implement the
+	 * {@link Task#execute(TaskExecutionContext)} method, so that pause requests are really handled. This can be done calling regularly the
+	 * {@link TaskExecutionContext#pauseIfRequested()} method during the task execution.
 	 * </p>
 	 * 
 	 * @return true if this task can be paused; false otherwise.
@@ -101,12 +90,9 @@ public abstract class Task {
 	 * Default implementation returns <em>false</em>.
 	 * </p>
 	 * <p>
-	 * Task developers can override this method to let it return a <em>true</em>
-	 * value, and at the same time they have to implement the
-	 * {@link Task#execute(TaskExecutionContext)} method, so that stop requests
-	 * are really handled. This can be done checking regularly the
-	 * {@link TaskExecutionContext#isStopped()} method during the task
-	 * execution.
+	 * Task developers can override this method to let it return a <em>true</em> value, and at the same time they have to implement the
+	 * {@link Task#execute(TaskExecutionContext)} method, so that stop requests are really handled. This can be done checking regularly the
+	 * {@link TaskExecutionContext#isStopped()} method during the task execution.
 	 * </p>
 	 * 
 	 * @return true if this task can be stopped; false otherwise.
@@ -123,14 +109,11 @@ public abstract class Task {
 	 * Default implementation returns <em>false</em>.
 	 * </p>
 	 * <p>
-	 * The task developer can override this method and returns <em>true</em>,
-	 * having care to regularly calling the
-	 * {@link TaskExecutionContext#setStatusMessage(String)} method during the
-	 * task execution.
+	 * The task developer can override this method and returns <em>true</em>, having care to regularly calling the
+	 * {@link TaskExecutionContext#setStatusMessage(String)} method during the task execution.
 	 * </p>
 	 * 
-	 * @return true if this task, during its execution, provides status message
-	 *         regularly.
+	 * @return true if this task, during its execution, provides status message regularly.
 	 */
 	public boolean supportsStatusTracking() {
 		return false;
@@ -144,14 +127,11 @@ public abstract class Task {
 	 * Default implementation returns <em>false</em>.
 	 * </p>
 	 * <p>
-	 * The task developer can override this method and returns <em>true</em>,
-	 * having care to regularly calling the
-	 * {@link TaskExecutionContext#setCompleteness(double)} method during the
-	 * task execution.
+	 * The task developer can override this method and returns <em>true</em>, having care to regularly calling the
+	 * {@link TaskExecutionContext#setCompleteness(double)} method during the task execution.
 	 * </p>
 	 * 
-	 * @return true if this task, during its execution, provides a completeness
-	 *         value regularly.
+	 * @return true if this task, during its execution, provides a completeness value regularly.
 	 */
 	public boolean supportsCompletenessTracking() {
 		return false;
@@ -159,17 +139,13 @@ public abstract class Task {
 
 	/**
 	 * <p>
-	 * This method is called to require a task execution, and should contain the
-	 * core routine of any scheduled task.
+	 * This method is called to require a task execution, and should contain the core routine of any scheduled task.
 	 * </p>
 	 * 
 	 * <p>
-	 * If the <em>execute()</em> method ends regularly the scheduler will
-	 * consider the execution successfully completed, and this will be
-	 * communicated to any {@link SchedulerListener} interested in it. If the
-	 * <em>execute()</em> method dies throwing a {@link RuntimeException} the
-	 * scheduler will consider it as a failure notification. Any
-	 * {@link SchedulerListener} will be notified about the occurred exception.
+	 * If the <em>execute()</em> method ends regularly the scheduler will consider the execution successfully completed, and this will be communicated
+	 * to any {@link SchedulerListener} interested in it. If the <em>execute()</em> method dies throwing a {@link RuntimeException} the scheduler will
+	 * consider it as a failure notification. Any {@link SchedulerListener} will be notified about the occurred exception.
 	 * </p>
 	 * 
 	 * @param context
@@ -177,7 +153,6 @@ public abstract class Task {
 	 * @throws RuntimeException
 	 *             Task execution has somehow failed.
 	 */
-	public abstract void execute(TaskExecutionContext context)
-			throws RuntimeException;
+	public abstract void execute(TaskExecutionContext context) throws RuntimeException;
 
 }

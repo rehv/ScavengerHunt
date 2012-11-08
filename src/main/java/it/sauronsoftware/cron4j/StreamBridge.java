@@ -25,9 +25,8 @@ import java.util.ArrayList;
 
 /**
  * <p>
- * A package-reserved utility class. It spawns a secondary thread in which the
- * supplied {@link InputStream} instance is read, and the incoming contents are
- * written in the supplied {@link OutputStream}.
+ * A package-reserved utility class. It spawns a secondary thread in which the supplied {@link InputStream} instance is read, and the incoming
+ * contents are written in the supplied {@link OutputStream}.
  * </p>
  * 
  * @author Carlo Pelliccia
@@ -105,24 +104,21 @@ class StreamBridge {
 	 * Waits for this job to die.
 	 * 
 	 * @throws InterruptedException
-	 *             If another thread has interrupted the current thread. The
-	 *             interrupted status of the current thread is cleared when this
-	 *             exception is thrown.
+	 *             If another thread has interrupted the current thread. The interrupted status of the current thread is cleared when this exception
+	 *             is thrown.
 	 */
 	public void join() throws InterruptedException {
 		thread.join();
 	}
 
 	/**
-	 * Waits at most <code>millis</code> milliseconds for this thread to die. A
-	 * timeout of <code>0</code> means to wait forever.
+	 * Waits at most <code>millis</code> milliseconds for this thread to die. A timeout of <code>0</code> means to wait forever.
 	 * 
 	 * @param millis
 	 *            the time to wait in milliseconds.
 	 * @throws InterruptedException
-	 *             If another thread has interrupted the current thread. The
-	 *             interrupted status of the current thread is cleared when this
-	 *             exception is thrown.
+	 *             If another thread has interrupted the current thread. The interrupted status of the current thread is cleared when this exception
+	 *             is thrown.
 	 */
 	public void join(long millis) throws InterruptedException {
 		thread.join(millis);
@@ -134,24 +130,19 @@ class StreamBridge {
 	 * @param nanos
 	 *            0-999999 additional nanoseconds to wait.
 	 * @throws IllegalArgumentException
-	 *             if the value of millis is negative the value of nanos is not
-	 *             in the range 0-999999.
+	 *             if the value of millis is negative the value of nanos is not in the range 0-999999.
 	 * @throws InterruptedException
-	 *             If another thread has interrupted the current thread. The
-	 *             interrupted status of the current thread is cleared when this
-	 *             exception is thrown.
+	 *             If another thread has interrupted the current thread. The interrupted status of the current thread is cleared when this exception
+	 *             is thrown.
 	 */
-	public void join(long millis, int nanos) throws IllegalArgumentException,
-			InterruptedException {
+	public void join(long millis, int nanos) throws IllegalArgumentException, InterruptedException {
 		thread.join(millis, nanos);
 	}
 
 	/**
-	 * Tests if this bridge is alive. A job is alive if it has been started and
-	 * has not yet completed.
+	 * Tests if this bridge is alive. A job is alive if it has been started and has not yet completed.
 	 * 
-	 * @return <code>true</code> if this thread is alive; <code>false</code>
-	 *         otherwise.
+	 * @return <code>true</code> if this thread is alive; <code>false</code> otherwise.
 	 */
 	public boolean isAlive() {
 		return thread.isAlive();

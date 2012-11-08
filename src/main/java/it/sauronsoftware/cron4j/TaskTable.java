@@ -60,8 +60,7 @@ public class TaskTable {
 	}
 
 	/**
-	 * Returns the size of the table, representing the number of the elements
-	 * stored in it.
+	 * Returns the size of the table, representing the number of the elements stored in it.
 	 * 
 	 * @return The table size.
 	 */
@@ -70,8 +69,7 @@ public class TaskTable {
 	}
 
 	/**
-	 * Returns the task at the specified position. Valid positions are between
-	 * <em>0</em> to <em>{@link TaskTable#size()} - 1</em>.
+	 * Returns the task at the specified position. Valid positions are between <em>0</em> to <em>{@link TaskTable#size()} - 1</em>.
 	 * 
 	 * @param index
 	 *            The index.
@@ -84,8 +82,7 @@ public class TaskTable {
 	}
 
 	/**
-	 * Returns the scheduling pattern at the specified position. Valid positions
-	 * are between <em>0</em> to <em>{@link TaskTable#size()} - 1</em>.
+	 * Returns the scheduling pattern at the specified position. Valid positions are between <em>0</em> to <em>{@link TaskTable#size()} - 1</em>.
 	 * 
 	 * @param index
 	 *            The index.
@@ -93,8 +90,7 @@ public class TaskTable {
 	 * @throws IndexOutOfBoundsException
 	 *             If the supplied index is out of range.
 	 */
-	public SchedulingPattern getSchedulingPattern(int index)
-			throws IndexOutOfBoundsException {
+	public SchedulingPattern getSchedulingPattern(int index) throws IndexOutOfBoundsException {
 		return (SchedulingPattern) patterns.get(index);
 	}
 

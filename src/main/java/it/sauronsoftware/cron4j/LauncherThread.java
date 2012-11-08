@@ -19,10 +19,8 @@
 package it.sauronsoftware.cron4j;
 
 /**
- * LauncherThreads are used by {@link Scheduler} instances. A LauncherThread
- * retrieves a list of task from a set of {@link TaskCollector}s. Then it
- * launches, within a separate {@link TaskExecutor}, every retrieved task whose
- * scheduling pattern matches the given reference time.
+ * LauncherThreads are used by {@link Scheduler} instances. A LauncherThread retrieves a list of task from a set of {@link TaskCollector}s. Then it
+ * launches, within a separate {@link TaskExecutor}, every retrieved task whose scheduling pattern matches the given reference time.
  * 
  * @author Carlo Pelliccia
  * @since 2.0
@@ -59,14 +57,12 @@ class LauncherThread extends Thread {
 	 * @param referenceTimeInMillis
 	 *            A reference time for task launching.
 	 */
-	public LauncherThread(Scheduler scheduler, TaskCollector[] collectors,
-			long referenceTimeInMillis) {
+	public LauncherThread(Scheduler scheduler, TaskCollector[] collectors, long referenceTimeInMillis) {
 		this.scheduler = scheduler;
 		this.collectors = collectors;
 		this.referenceTimeInMillis = referenceTimeInMillis;
 		// Thread name.
-		String name = "cron4j::scheduler[" + scheduler.getGuid()
-				+ "]::launcher[" + guid + "]";
+		String name = "cron4j::scheduler[" + scheduler.getGuid() + "]::launcher[" + guid + "]";
 		setName(name);
 	}
 

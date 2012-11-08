@@ -28,8 +28,7 @@ import java.io.OutputStream;
 
 /**
  * <p>
- * A built-in {@link Task} implementation which can be used to run an external
- * process.
+ * A built-in {@link Task} implementation which can be used to run an external process.
  * </p>
  * 
  * @author Carlo Pelliccia
@@ -43,15 +42,13 @@ public class ProcessTask extends Task {
 	private String[] command;
 
 	/**
-	 * Environment variables for the spawned process, in the form
-	 * <em>name=value</em>. If null the process will inherit the current JVM
-	 * environment variables.
+	 * Environment variables for the spawned process, in the form <em>name=value</em>. If null the process will inherit the current JVM environment
+	 * variables.
 	 */
 	private String[] envs;
 
 	/**
-	 * Working directory for the spawned process. If null the process will
-	 * inherit the current JVM working directory.
+	 * Working directory for the spawned process. If null the process will inherit the current JVM working directory.
 	 */
 	private File directory;
 
@@ -76,12 +73,10 @@ public class ProcessTask extends Task {
 	 * @param command
 	 *            The command to launch and its arguments.
 	 * @param envs
-	 *            Environment variables for the spawned process, in the form
-	 *            <em>name=value</em>. If null the process will inherit the
-	 *            current JVM environment variables.
+	 *            Environment variables for the spawned process, in the form <em>name=value</em>. If null the process will inherit the current JVM
+	 *            environment variables.
 	 * @param directory
-	 *            Working directory for the spawned process. If null the process
-	 *            will inherit the current JVM working directory.
+	 *            Working directory for the spawned process. If null the process will inherit the current JVM working directory.
 	 */
 	public ProcessTask(String[] command, String[] envs, File directory) {
 		this.command = command;
@@ -95,9 +90,8 @@ public class ProcessTask extends Task {
 	 * @param command
 	 *            The command to launch and its arguments.
 	 * @param envs
-	 *            Environment variables for the spawned process, in the form
-	 *            <em>name=value</em>. If null the process will inherit the
-	 *            current JVM environment variables.
+	 *            Environment variables for the spawned process, in the form <em>name=value</em>. If null the process will inherit the current JVM
+	 *            environment variables.
 	 */
 	public ProcessTask(String[] command, String[] envs) {
 		this(command, envs, null);
@@ -150,58 +144,49 @@ public class ProcessTask extends Task {
 	}
 
 	/**
-	 * Returns the environment variables, in the <em>name=value</em> form, used
-	 * by the task to run its process. If null the process will inherit the
+	 * Returns the environment variables, in the <em>name=value</em> form, used by the task to run its process. If null the process will inherit the
 	 * current JVM environment variables.
 	 * 
-	 * @return The environment variables, in the <em>name=value</em> form, used
-	 *         by the task to run its process. If null the process will inherit
-	 *         the current JVM environment variables.
+	 * @return The environment variables, in the <em>name=value</em> form, used by the task to run its process. If null the process will inherit the
+	 *         current JVM environment variables.
 	 */
 	public String[] getEnvs() {
 		return envs;
 	}
 
 	/**
-	 * Sets the environment variables, in the <em>name=value</em> form, used by
-	 * the task to run its process. If null the process will inherit the current
-	 * JVM environment variables.
+	 * Sets the environment variables, in the <em>name=value</em> form, used by the task to run its process. If null the process will inherit the
+	 * current JVM environment variables.
 	 * 
 	 * @param envs
-	 *            The environment variables, in the <em>name=value</em> form,
-	 *            used by the task to run its process. If null the process will
-	 *            inherit the current JVM environment variables.
+	 *            The environment variables, in the <em>name=value</em> form, used by the task to run its process. If null the process will inherit
+	 *            the current JVM environment variables.
 	 */
 	public void setEnvs(String[] envs) {
 		this.envs = envs;
 	}
 
 	/**
-	 * Resturns the working directory for the spawned process. If null the
-	 * process will inherit the current JVM working directory.
+	 * Resturns the working directory for the spawned process. If null the process will inherit the current JVM working directory.
 	 * 
-	 * @return The working directory for the spawned process. If null the
-	 *         process will inherit the current JVM working directory.
+	 * @return The working directory for the spawned process. If null the process will inherit the current JVM working directory.
 	 */
 	public File getDirectory() {
 		return directory;
 	}
 
 	/**
-	 * Sets the working directory for the spawned process. If null the process
-	 * will inherit the current JVM working directory.
+	 * Sets the working directory for the spawned process. If null the process will inherit the current JVM working directory.
 	 * 
 	 * @param directory
-	 *            The working directory for the spawned process. If null the
-	 *            process will inherit the current JVM working directory.
+	 *            The working directory for the spawned process. If null the process will inherit the current JVM working directory.
 	 */
 	public void setDirectory(File directory) {
 		this.directory = directory;
 	}
 
 	/**
-	 * Returns the standard input file (optional). If supplied, the standard
-	 * input channel of the spawned process will be read from the given file.
+	 * Returns the standard input file (optional). If supplied, the standard input channel of the spawned process will be read from the given file.
 	 * 
 	 * @return The standard input file (optional).
 	 */
@@ -210,8 +195,7 @@ public class ProcessTask extends Task {
 	}
 
 	/**
-	 * Sets the standard input file (optional). If supplied, the standard input
-	 * channel of the spawned process will be read from the given file.
+	 * Sets the standard input file (optional). If supplied, the standard input channel of the spawned process will be read from the given file.
 	 * 
 	 * @param stdinFile
 	 *            The standard input file (optional).
@@ -221,8 +205,7 @@ public class ProcessTask extends Task {
 	}
 
 	/**
-	 * Sets the standard output file (optional). If supplied, the standard
-	 * output channel of the spawned process will be written in the given file.
+	 * Sets the standard output file (optional). If supplied, the standard output channel of the spawned process will be written in the given file.
 	 * 
 	 * @param stdoutFile
 	 *            The standard output file (optional).
@@ -232,8 +215,7 @@ public class ProcessTask extends Task {
 	}
 
 	/**
-	 * Returns the standard output file (optional). If supplied, the standard
-	 * output channel of the spawned process will be written in the given file.
+	 * Returns the standard output file (optional). If supplied, the standard output channel of the spawned process will be written in the given file.
 	 * 
 	 * @return The standard output file (optional).
 	 */
@@ -242,8 +224,7 @@ public class ProcessTask extends Task {
 	}
 
 	/**
-	 * Sets the standard error file (optional). If supplied, the standard error
-	 * channel of the spawned process will be written in the given file.
+	 * Sets the standard error file (optional). If supplied, the standard error channel of the spawned process will be written in the given file.
 	 * 
 	 * @param stderrFile
 	 *            The standard error file (optional).
@@ -253,8 +234,7 @@ public class ProcessTask extends Task {
 	}
 
 	/**
-	 * Returns the standard error file (optional). If supplied, the standard
-	 * error channel of the spawned process will be written in the given file.
+	 * Returns the standard error file (optional). If supplied, the standard error channel of the spawned process will be written in the given file.
 	 * 
 	 * @return The standard error file (optional).
 	 */
@@ -263,8 +243,7 @@ public class ProcessTask extends Task {
 	}
 
 	/**
-	 * Implements {@link Task#execute(TaskExecutionContext)}. Runs the given
-	 * command as a separate process and waits for its end.
+	 * Implements {@link Task#execute(TaskExecutionContext)}. Runs the given command as a separate process and waits for its end.
 	 */
 	public void execute(TaskExecutionContext context) throws RuntimeException {
 		Process p;
@@ -378,8 +357,7 @@ public class ProcessTask extends Task {
 	}
 
 	/**
-	 * Prints in the returned string the elements contained in the given string
-	 * array.
+	 * Prints in the returned string the elements contained in the given string array.
 	 * 
 	 * @param arr
 	 *            The array.

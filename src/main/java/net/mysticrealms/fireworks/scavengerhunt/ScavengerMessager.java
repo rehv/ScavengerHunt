@@ -7,6 +7,7 @@ import net.mysticrealms.fireworks.scavengerhunt.util.NameRetriever;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -32,34 +33,80 @@ public class ScavengerMessager {
 		existMobs = !plugin.currentMobs.isEmpty();
 		sendAll(ChatColor.DARK_RED + "Scavenger Hunt is starting! Good luck!");
 		if (plugin.duration > 0) {
-			sendAll(ChatColor.DARK_RED + "You have: " + ChatColor.GOLD + timeFormatter(plugin.duration) + "!");
+			sendAll(ChatColor.DARK_RED + "This event will last for: " + ChatColor.GOLD + timeFormatter(plugin.duration) + "!");
+		}
+		sendAll(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerJoin" + ChatColor.DARK_RED + " to join the event!");
+
+		if ((existItems || existMobs)) {
+			sendAll(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerItems" + ChatColor.DARK_RED + " to view objectives.");
+		}
+		sendAll(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerRewards" + ChatColor.DARK_RED + " to view rewards.");
+	}
+
+	public void displayJoin(Player p) {
+		existItems = !plugin.currentItems.isEmpty();
+		existMobs = !plugin.currentMobs.isEmpty();
+		p.sendMessage(ChatColor.DARK_RED + "You have joined this Scavenger Hunt! Good luck!");
+		long timeDiff = plugin.end - System.currentTimeMillis();
+		String timeLeft = ScavengerMessager.timeFormatter((int) ((timeDiff) / 1000));
+		if (plugin.duration > 0) {
+			p.sendMessage(ChatColor.DARK_RED + "You have: " + ChatColor.GOLD + timeLeft + "!");
 		}
 
 		if ((existItems || existMobs) && shortMessages) {
-			sendAll(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerItems" + ChatColor.DARK_RED + " to view objectives.");
+			p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerItems" + ChatColor.DARK_RED + " to view objectives.");
 		}
 
 		if ((existItems || existMobs) && !shortMessages && riddleMode) {
-			sendAll(ChatColor.DARK_RED + "Here are the clues: ");
+			p.sendMessage(ChatColor.DARK_RED + "Here are the clues: ");
 			for (String i : plugin.riddles) {
-				sendAll(ChatColor.GOLD + " * " + i);
+				p.sendMessage(ChatColor.GOLD + " * " + i);
 			}
 		}
 
 		if (existItems && !shortMessages && !riddleMode) {
-			sendAll(ChatColor.DARK_RED + "You need to collect: ");
+			p.sendMessage(ChatColor.DARK_RED + "You need to collect: ");
 			for (ItemStack i : plugin.currentItems) {
-				sendAll(ChatColor.GOLD + configToString(i));
+				p.sendMessage(ChatColor.GOLD + configToString(i));
 			}
 		}
 
 		if (existMobs && !shortMessages && !riddleMode) {
-			sendAll(ChatColor.DARK_RED + "You need to kill: ");
+			p.sendMessage(ChatColor.DARK_RED + "You need to kill: ");
 			for (Map.Entry<EntityType, Integer> entry : plugin.currentMobs.entrySet()) {
-				sendAll(ChatColor.GOLD + " * " + entry.getValue() + " " + entry.getKey().getName().toLowerCase().replace("_", " "));
+				p.sendMessage(ChatColor.GOLD + " * " + entry.getValue() + " " + entry.getKey().getName().toLowerCase().replace("_", " "));
 			}
 		}
-		sendAll(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerRewards" + ChatColor.DARK_RED + " to view rewards.");
+		p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerRewards" + ChatColor.DARK_RED + " to view rewards.");
+	}
+	
+	public void displayJoinCurrent(Player p) {
+		long timeDiff = plugin.end - System.currentTimeMillis();
+		String timeLeft = timeFormatter((int) ((timeDiff) / 1000));
+		
+		p.sendMessage(ChatColor.DARK_RED + "There is a Scavenger Hunt happening!");
+		if (plugin.duration > 0) {
+			p.sendMessage(ChatColor.DARK_RED + "This event will last for: " + ChatColor.GOLD + timeLeft + "!");
+		}
+		p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerJoin" + ChatColor.DARK_RED + " to join the event!");
+		p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerItems" + ChatColor.DARK_RED + " to view objectives.");
+		p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerRewards" + ChatColor.DARK_RED + " to view rewards.");
+	}
+	
+	public void displayRejoin(Player p) {
+		long timeDiff = plugin.end - System.currentTimeMillis();
+		String timeLeft = timeFormatter((int) ((timeDiff) / 1000));
+		
+		p.sendMessage(ChatColor.DARK_RED + "Your progress in the current scavenger was loaded!");
+		if (plugin.duration > 0) {
+			p.sendMessage(ChatColor.DARK_RED + "You still have: " + ChatColor.GOLD + timeLeft + "!");
+		}
+		p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerItems" + ChatColor.DARK_RED + " to view your current progress.");
+		p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerRewards" + ChatColor.DARK_RED + " to view rewards.");
+	}
+	
+	public void displayRejoinFailed(Player p) {
+		p.sendMessage(ChatColor.DARK_RED + "Your progress in the current scavenger couldn't be loaded. Your mob objectives will have to be done again.");
 	}
 
 	public void listHelp(CommandSender sender) {
@@ -79,6 +126,19 @@ public class ScavengerMessager {
 
 	public void listScavengerEventItems(CommandSender sender) {
 		if (!(sender instanceof Player)) {
+			if (existItems) {
+				sender.sendMessage(ChatColor.DARK_RED + "Current scavenger item objectives: ");
+				for (ItemStack i : plugin.currentItems) {
+					sender.sendMessage(ChatColor.GOLD + configToString(i));
+				}
+			}
+
+			if (existMobs) {
+				sender.sendMessage(ChatColor.DARK_RED + "Current scavenger mob objectives: ");
+				for (Map.Entry<EntityType, Integer> entry : plugin.currentMobs.entrySet()) {
+					sender.sendMessage(ChatColor.GOLD + " * " + entry.getValue() + " " + entry.getKey().getName().toLowerCase().replace("_", " "));
+				}
+			}
 			return;
 		}
 		Player p = (Player) sender;
@@ -99,7 +159,11 @@ public class ScavengerMessager {
 					sender.sendMessage(ChatColor.DARK_RED + "Current scavenger mob objectives: ");
 					Map<EntityType, Integer> status = plugin.getMap(sender.getName());
 					for (Map.Entry<EntityType, Integer> entry : plugin.currentMobs.entrySet()) {
-						sender.sendMessage(ChatColor.GOLD + " * " + status.get(entry.getKey()) + "/" + entry.getValue() + " " + entry.getKey().getName().toLowerCase().replace("_", " "));
+						int mobProgress = status.get(entry.getKey());
+						if (mobProgress > entry.getValue()) {
+							mobProgress = entry.getValue();
+						}
+						sender.sendMessage(ChatColor.GOLD + " * " + mobProgress + "/" + entry.getValue() + " " + entry.getKey().getName().toLowerCase().replace("_", " "));
 					}
 				}
 			}
@@ -139,7 +203,37 @@ public class ScavengerMessager {
 		} else if (item.getType().isRecord()) {
 			return NameRetriever.getDiscName(item.getTypeId());
 		} else {
-			return item.getType().toString();
+			Map<Enchantment, Integer> enchants = item.getEnchantments();
+			if (enchants.isEmpty()) {
+				return item.getType().toString();
+			} else {
+				String builder = item.getType().toString();
+				builder += " (";
+				for (Map.Entry<Enchantment, Integer> entry : enchants.entrySet()) {
+					builder += NameRetriever.getEnchantName(entry.getKey().getId());
+					switch (entry.getValue()) {
+					case 1:
+						builder += " I";
+						break;
+					case 2:
+						builder += " II";
+						break;
+					case 3:
+						builder += " III";
+						break;
+					case 4:
+						builder += " IV";
+						break;
+					case 5:
+						builder += " V";
+						break;
+					}
+					builder += " ";
+				}
+				builder = builder.trim();
+				builder += ")";
+				return builder;
+			}
 		}
 	}
 
@@ -148,7 +242,7 @@ public class ScavengerMessager {
 	}
 
 	public String configToString(ItemStack item, int current) {
-		String itemName = itemFormatter(item).toLowerCase().replace("_", " ").replace(" ii", " II");
+		String itemName = itemFormatter(item).toLowerCase().replace("_", " ").replace(" v", " V").replace(" iv", " IV").replace(" iii", " III").replace(" ii", " II").replace(" i", " I");
 		return " * " + ((current != -1) ? current + "/" : "") + item.getAmount() + " " + itemName;
 	}
 

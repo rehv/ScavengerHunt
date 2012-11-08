@@ -20,8 +20,7 @@ package it.sauronsoftware.cron4j;
 
 /**
  * <p>
- * A {@link Task} implementation acting as a wrapper around a {@link Runnable}
- * object.
+ * A {@link Task} implementation acting as a wrapper around a {@link Runnable} object.
  * </p>
  * 
  * @author Carlo Pelliccia
@@ -56,8 +55,7 @@ class RunnableTask extends Task {
 	}
 
 	/**
-	 * Implements {@link Task#execute(TaskExecutionContext)}, launching the
-	 * {@link Runnable#run()} method on the wrapped object.
+	 * Implements {@link Task#execute(TaskExecutionContext)}, launching the {@link Runnable#run()} method on the wrapped object.
 	 */
 	public void execute(TaskExecutionContext context) {
 		runnable.run();

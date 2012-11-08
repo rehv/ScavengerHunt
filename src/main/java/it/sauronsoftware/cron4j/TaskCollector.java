@@ -20,13 +20,10 @@ package it.sauronsoftware.cron4j;
 
 /**
  * <p>
- * This interface describes a task collector. Task collectors can be registered
- * in a {@link Scheduler} instance with the
- * {@link Scheduler#addTaskCollector(TaskCollector)} method. Any registered task
- * collector is queried by the scheduler once a minute. The developer has to
- * implement the {@link TaskCollector#getTasks()} method, returning a
- * {@link TaskTable} whose elements has been collected with a custom logic. In
- * example the list can be extracted from a database.
+ * This interface describes a task collector. Task collectors can be registered in a {@link Scheduler} instance with the
+ * {@link Scheduler#addTaskCollector(TaskCollector)} method. Any registered task collector is queried by the scheduler once a minute. The developer
+ * has to implement the {@link TaskCollector#getTasks()} method, returning a {@link TaskTable} whose elements has been collected with a custom logic.
+ * In example the list can be extracted from a database.
  * </p>
  * 
  * @author Carlo Pelliccia
@@ -35,15 +32,11 @@ package it.sauronsoftware.cron4j;
 public interface TaskCollector {
 
 	/**
-	 * Once the instance has been registered on a {@link Scheduler} instance,
-	 * with the {@link Scheduler#addTaskCollector(TaskCollector)} method, this
-	 * method will be queried once a minute. It should return a custom
-	 * {@link TaskTable} object. The scheduler instance will automatically
-	 * iterate over the returned table elements, executing any task whose
-	 * scheduling pattern is matching the current system time.
+	 * Once the instance has been registered on a {@link Scheduler} instance, with the {@link Scheduler#addTaskCollector(TaskCollector)} method, this
+	 * method will be queried once a minute. It should return a custom {@link TaskTable} object. The scheduler instance will automatically iterate
+	 * over the returned table elements, executing any task whose scheduling pattern is matching the current system time.
 	 * 
-	 * @return The task table that will be automatically injected in the
-	 *         scheduler.
+	 * @return The task table that will be automatically injected in the scheduler.
 	 */
 	public TaskTable getTasks();
 

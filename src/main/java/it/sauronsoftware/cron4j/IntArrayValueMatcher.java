@@ -22,8 +22,7 @@ import java.util.ArrayList;
 
 /**
  * <p>
- * A ValueMatcher whose rules are in a plain array of integer values. When asked
- * to validate a value, this ValueMatcher checks if it is in the array.
+ * A ValueMatcher whose rules are in a plain array of integer values. When asked to validate a value, this ValueMatcher checks if it is in the array.
  * </p>
  * 
  * @author Carlo Pelliccia
@@ -39,9 +38,8 @@ class IntArrayValueMatcher implements ValueMatcher {
 	 * Builds the ValueMatcher.
 	 * 
 	 * @param integers
-	 *            An ArrayList of Integer elements, one for every value accepted
-	 *            by the matcher. The match() method will return true only if
-	 *            its parameter will be one of this list.
+	 *            An ArrayList of Integer elements, one for every value accepted by the matcher. The match() method will return true only if its
+	 *            parameter will be one of this list.
 	 */
 	public IntArrayValueMatcher(ArrayList integers) {
 		int size = integers.size();
