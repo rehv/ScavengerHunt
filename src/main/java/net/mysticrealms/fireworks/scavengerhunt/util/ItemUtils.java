@@ -15,10 +15,12 @@ public class ItemUtils {
 			try {
 				intParts[e] = Integer.parseInt(parts[e]);
 			} catch (final NumberFormatException exception) {
-				if (enchant)
+				if (enchant) {
 					continue;
-				else
+				}
+				else {
 					return null;
+				}
 			}
 		}
 		ItemStack result = null;

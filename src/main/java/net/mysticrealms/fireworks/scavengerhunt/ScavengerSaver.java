@@ -46,7 +46,7 @@ public class ScavengerSaver {
 	}
 
 	protected static void savePlayer(Player p) {
-		File playerData = new File(plugin.getDataFolder(), "savedData"+ File.pathSeparator + p.getDisplayName() + ".yml");
+		File playerData = new File(plugin.getDataFolder(), "savedData" + File.pathSeparator + p.getDisplayName() + ".yml");
 		if (!playerData.exists()) {
 			try {
 				playerData.createNewFile();
@@ -62,8 +62,9 @@ public class ScavengerSaver {
 		 */
 		List<String> mobList = new ArrayList<String>();
 		for (Map.Entry<EntityType, Integer> entry : plugin.getMap(p.getName()).entrySet()) {
-			if (plugin.currentMobs.containsKey(entry.getKey()))
+			if (plugin.currentMobs.containsKey(entry.getKey())) {
 				mobList.add(entry.getKey() + " " + entry.getValue());
+			}
 		}
 		config.set(scavengerID, mobList);
 		try {
@@ -74,7 +75,7 @@ public class ScavengerSaver {
 	}
 
 	protected static boolean loadPlayer(Player p) {
-		File playerData = new File(plugin.getDataFolder(), "savedData"+ File.pathSeparator + p.getDisplayName() + ".yml");
+		File playerData = new File(plugin.getDataFolder(), "savedData" + File.pathSeparator + p.getDisplayName() + ".yml");
 		FileConfiguration config = new YamlConfiguration();
 
 		try {

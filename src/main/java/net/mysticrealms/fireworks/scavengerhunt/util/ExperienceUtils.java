@@ -34,10 +34,12 @@ public class ExperienceUtils {
 		}
 		xp = xp + amt;
 
-		if (xp < 0)
+		if (xp < 0) {
 			xp = 0;
-		else if (xp > xpceil)
+		}
+		else if (xp > xpceil) {
 			xp = xpceil;
+		}
 
 		int curLvl = player.getLevel();
 		int newLvl = getCurrentLevel(xp);
@@ -59,8 +61,9 @@ public class ExperienceUtils {
 	}
 
 	public static int getCurrentLevel(int exp) {
-		if (exp <= 0)
+		if (exp <= 0) {
 			return 0;
+		}
 		int pos = Arrays.binarySearch(xpTotalToReachLevel, exp);
 		return pos < 0 ? -pos - 2 : pos;
 	}
