@@ -17,8 +17,7 @@ public class ItemUtils {
 			} catch (final NumberFormatException exception) {
 				if (enchant) {
 					continue;
-				}
-				else {
+				} else {
 					return null;
 				}
 			}

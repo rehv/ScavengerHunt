@@ -378,9 +378,17 @@ public class ScavengerHunt extends JavaPlugin {
 		if (globalNumOfObjectives > 0) {
 			for (int i = globalNumOfObjectives; i > 0; i--) {
 				if (r.nextInt() % 2 == 0) {
-					numOfItems++;
+					if ((numOfItems + 1) <= items.size()) {
+						numOfItems++;
+					} else if ((numOfMobs + 1) <= mobs.size()) {
+						numOfMobs++;
+					}
 				} else {
-					numOfMobs++;
+					if ((numOfMobs + 1) <= mobs.size()) {
+						numOfMobs++;
+					} else if ((numOfItems + 1) <= items.size()) {
+						numOfItems++;
+					}
 				}
 			}
 		}

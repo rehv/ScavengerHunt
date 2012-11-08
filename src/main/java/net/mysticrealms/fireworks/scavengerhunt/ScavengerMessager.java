@@ -79,11 +79,11 @@ public class ScavengerMessager {
 		}
 		p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerRewards" + ChatColor.DARK_RED + " to view rewards.");
 	}
-	
+
 	public void displayJoinCurrent(Player p) {
 		long timeDiff = plugin.end - System.currentTimeMillis();
 		String timeLeft = timeFormatter((int) ((timeDiff) / 1000));
-		
+
 		p.sendMessage(ChatColor.DARK_RED + "There is a Scavenger Hunt happening!");
 		if (plugin.duration > 0) {
 			p.sendMessage(ChatColor.DARK_RED + "This event will last for: " + ChatColor.GOLD + timeLeft + "!");
@@ -92,11 +92,11 @@ public class ScavengerMessager {
 		p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerItems" + ChatColor.DARK_RED + " to view objectives.");
 		p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerRewards" + ChatColor.DARK_RED + " to view rewards.");
 	}
-	
+
 	public void displayRejoin(Player p) {
 		long timeDiff = plugin.end - System.currentTimeMillis();
 		String timeLeft = timeFormatter((int) ((timeDiff) / 1000));
-		
+
 		p.sendMessage(ChatColor.DARK_RED + "Your progress in the current scavenger was loaded!");
 		if (plugin.duration > 0) {
 			p.sendMessage(ChatColor.DARK_RED + "You still have: " + ChatColor.GOLD + timeLeft + "!");
@@ -104,7 +104,7 @@ public class ScavengerMessager {
 		p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerItems" + ChatColor.DARK_RED + " to view your current progress.");
 		p.sendMessage(ChatColor.DARK_RED + "Use " + ChatColor.GOLD + "/scavengerRewards" + ChatColor.DARK_RED + " to view rewards.");
 	}
-	
+
 	public void displayRejoinFailed(Player p) {
 		p.sendMessage(ChatColor.DARK_RED + "Your progress in the current scavenger couldn't be loaded. Your mob objectives will have to be done again.");
 	}

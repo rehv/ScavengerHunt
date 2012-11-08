@@ -20,15 +20,13 @@ public class ExperienceUtils {
 		for (int i = 0; i < xpTotalToReachLevel.length; i++) {
 			if (i < 15) {
 				xpRequiredForNextLevel[i] = 17;
-				xpTotalToReachLevel[i+1] = 17 * (i+1); 
-			}
-			else if (i < 30) {
+				xpTotalToReachLevel[i + 1] = 17 * (i + 1);
+			} else if (i < 30) {
 				xpRequiredForNextLevel[i] = (int) Math.ceil(3 * i - 28);
-				xpTotalToReachLevel[i+1] = (int) Math.ceil(1.5 * (i+1) * (i+1) - 29.5 * (i+1) + 360);
-			}
-			else {
+				xpTotalToReachLevel[i + 1] = (int) Math.ceil(1.5 * (i + 1) * (i + 1) - 29.5 * (i + 1) + 360);
+			} else {
 				xpRequiredForNextLevel[i] = (int) Math.ceil(7 * i - 148);
-				xpTotalToReachLevel[i+1] = (int) Math.ceil(3.5 * (i+1) * (i+1) - 151.5 * (i+1) + 2220);
+				xpTotalToReachLevel[i + 1] = (int) Math.ceil(3.5 * (i + 1) * (i + 1) - 151.5 * (i + 1) + 2220);
 			}
 		}
 	}
@@ -46,8 +44,7 @@ public class ExperienceUtils {
 
 		if (xp < 0) {
 			xp = 0;
-		}
-		else if (xp > xpceil) {
+		} else if (xp > xpceil) {
 			xp = xpceil;
 		}
 
