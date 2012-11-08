@@ -10,7 +10,6 @@
 * Add option to reward differently based on player placing
 * Major code overhaul (write pre-existing ideas from scratch, change package, fix attribute and method protection)
 * Add reward probabilities
-* Move all (or almost all) sendMessage methods to messager class.
 * Check impact of savePlayer method being ran for every mob killed
 
 ## 1.7.2

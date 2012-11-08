@@ -106,7 +106,8 @@ public class ScavengerMessager {
 	}
 
 	public void displayRejoinFailed(Player p) {
-		p.sendMessage(ChatColor.DARK_RED + "Your progress in the current scavenger couldn't be loaded. Your mob objectives will have to be done again.");
+		p.sendMessage(ChatColor.DARK_RED + "Your progress in the current scavenger couldn't be loaded.");
+		p.sendMessage(ChatColor.DARK_RED + "Your mob objectives will need to be done again.");
 	}
 
 	public void listHelp(CommandSender sender) {
