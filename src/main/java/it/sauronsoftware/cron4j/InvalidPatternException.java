@@ -27,19 +27,19 @@ package it.sauronsoftware.cron4j;
  */
 public class InvalidPatternException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Package-reserved construction.
-	 */
-	InvalidPatternException() {
-	}
+    /**
+     * Package-reserved construction.
+     */
+    InvalidPatternException() {
+    }
 
-	/**
-	 * Package-reserved construction.
-	 */
-	InvalidPatternException(String message) {
-		super(message);
-	}
+    /**
+     * Package-reserved construction.
+     */
+    InvalidPatternException(String message) {
+        super(message);
+    }
 
 }

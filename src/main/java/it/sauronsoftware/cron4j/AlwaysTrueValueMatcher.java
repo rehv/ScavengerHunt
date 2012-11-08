@@ -25,11 +25,11 @@ package it.sauronsoftware.cron4j;
  */
 class AlwaysTrueValueMatcher implements ValueMatcher {
 
-	/**
-	 * Always true!
-	 */
-	public boolean match(int value) {
-		return true;
-	}
+    /**
+     * Always true!
+     */
+    public boolean match(int value) {
+        return true;
+    }
 
 }

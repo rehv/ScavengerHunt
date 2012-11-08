@@ -30,83 +30,83 @@ import java.util.ArrayList;
  */
 public class TaskTable {
 
-	/**
-	 * Table size.
-	 */
-	private int size = 0;
+    /**
+     * Table size.
+     */
+    private int size = 0;
 
-	/**
-	 * Pattern list.
-	 */
-	private ArrayList patterns = new ArrayList();
+    /**
+     * Pattern list.
+     */
+    private ArrayList patterns = new ArrayList();
 
-	/**
-	 * Task list.
-	 */
-	private ArrayList tasks = new ArrayList();
+    /**
+     * Task list.
+     */
+    private ArrayList tasks = new ArrayList();
 
-	/**
-	 * Adds a task and an associated scheduling pattern to the table.
-	 * 
-	 * @param pattern
-	 *            The associated scheduling pattern.
-	 * @param task
-	 *            The task.
-	 */
-	public void add(SchedulingPattern pattern, Task task) {
-		patterns.add(pattern);
-		tasks.add(task);
-		size++;
-	}
+    /**
+     * Adds a task and an associated scheduling pattern to the table.
+     * 
+     * @param pattern
+     *            The associated scheduling pattern.
+     * @param task
+     *            The task.
+     */
+    public void add(SchedulingPattern pattern, Task task) {
+        patterns.add(pattern);
+        tasks.add(task);
+        size++;
+    }
 
-	/**
-	 * Returns the size of the table, representing the number of the elements stored in it.
-	 * 
-	 * @return The table size.
-	 */
-	public int size() {
-		return size;
-	}
+    /**
+     * Returns the size of the table, representing the number of the elements stored in it.
+     * 
+     * @return The table size.
+     */
+    public int size() {
+        return size;
+    }
 
-	/**
-	 * Returns the task at the specified position. Valid positions are between <em>0</em> to <em>{@link TaskTable#size()} - 1</em>.
-	 * 
-	 * @param index
-	 *            The index.
-	 * @return The task at the specified position.
-	 * @throws IndexOutOfBoundsException
-	 *             If the supplied index is out of range.
-	 */
-	public Task getTask(int index) throws IndexOutOfBoundsException {
-		return (Task) tasks.get(index);
-	}
+    /**
+     * Returns the task at the specified position. Valid positions are between <em>0</em> to <em>{@link TaskTable#size()} - 1</em>.
+     * 
+     * @param index
+     *            The index.
+     * @return The task at the specified position.
+     * @throws IndexOutOfBoundsException
+     *             If the supplied index is out of range.
+     */
+    public Task getTask(int index) throws IndexOutOfBoundsException {
+        return (Task) tasks.get(index);
+    }
 
-	/**
-	 * Returns the scheduling pattern at the specified position. Valid positions are between <em>0</em> to <em>{@link TaskTable#size()} - 1</em>.
-	 * 
-	 * @param index
-	 *            The index.
-	 * @return The scheduling pattern at the specified position.
-	 * @throws IndexOutOfBoundsException
-	 *             If the supplied index is out of range.
-	 */
-	public SchedulingPattern getSchedulingPattern(int index) throws IndexOutOfBoundsException {
-		return (SchedulingPattern) patterns.get(index);
-	}
+    /**
+     * Returns the scheduling pattern at the specified position. Valid positions are between <em>0</em> to <em>{@link TaskTable#size()} - 1</em>.
+     * 
+     * @param index
+     *            The index.
+     * @return The scheduling pattern at the specified position.
+     * @throws IndexOutOfBoundsException
+     *             If the supplied index is out of range.
+     */
+    public SchedulingPattern getSchedulingPattern(int index) throws IndexOutOfBoundsException {
+        return (SchedulingPattern) patterns.get(index);
+    }
 
-	/**
-	 * Remove a task from the table.
-	 * 
-	 * @param index
-	 *            The index of the task to remove.
-	 * @throws IndexOutOfBoundsException
-	 *             If the supplied index is not valid.
-	 * @since 2.1
-	 */
-	public void remove(int index) throws IndexOutOfBoundsException {
-		tasks.remove(index);
-		patterns.remove(index);
-		size--;
-	}
+    /**
+     * Remove a task from the table.
+     * 
+     * @param index
+     *            The index of the task to remove.
+     * @throws IndexOutOfBoundsException
+     *             If the supplied index is not valid.
+     * @since 2.1
+     */
+    public void remove(int index) throws IndexOutOfBoundsException {
+        tasks.remove(index);
+        patterns.remove(index);
+        size--;
+    }
 
 }

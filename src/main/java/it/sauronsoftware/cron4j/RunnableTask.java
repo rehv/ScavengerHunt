@@ -28,49 +28,49 @@ package it.sauronsoftware.cron4j;
  */
 class RunnableTask extends Task {
 
-	/**
-	 * The wrapped runnable object.
-	 */
-	private Runnable runnable;
+    /**
+     * The wrapped runnable object.
+     */
+    private Runnable runnable;
 
-	/**
-	 * Builds the task.
-	 * 
-	 * @param runnable
-	 *            The wrapped Runnable object.
-	 * @throws InvalidPatternException
-	 *             If the supplied pattern is not valid.
-	 */
-	public RunnableTask(Runnable runnable) throws InvalidPatternException {
-		this.runnable = runnable;
-	}
+    /**
+     * Builds the task.
+     * 
+     * @param runnable
+     *            The wrapped Runnable object.
+     * @throws InvalidPatternException
+     *             If the supplied pattern is not valid.
+     */
+    public RunnableTask(Runnable runnable) throws InvalidPatternException {
+        this.runnable = runnable;
+    }
 
-	/**
-	 * Returns the wrapped Runnable object.
-	 * 
-	 * @return The wrapped Runnable object.
-	 */
-	public Runnable getRunnable() {
-		return runnable;
-	}
+    /**
+     * Returns the wrapped Runnable object.
+     * 
+     * @return The wrapped Runnable object.
+     */
+    public Runnable getRunnable() {
+        return runnable;
+    }
 
-	/**
-	 * Implements {@link Task#execute(TaskExecutionContext)}, launching the {@link Runnable#run()} method on the wrapped object.
-	 */
-	public void execute(TaskExecutionContext context) {
-		runnable.run();
-	}
+    /**
+     * Implements {@link Task#execute(TaskExecutionContext)}, launching the {@link Runnable#run()} method on the wrapped object.
+     */
+    public void execute(TaskExecutionContext context) {
+        runnable.run();
+    }
 
-	/**
-	 * Overrides {@link Object#toString()}.
-	 */
-	public String toString() {
-		StringBuffer b = new StringBuffer();
-		b.append("Task[");
-		b.append("runnable=");
-		b.append(runnable);
-		b.append("]");
-		return b.toString();
-	}
+    /**
+     * Overrides {@link Object#toString()}.
+     */
+    public String toString() {
+        StringBuffer b = new StringBuffer();
+        b.append("Task[");
+        b.append("runnable=");
+        b.append(runnable);
+        b.append("]");
+        return b.toString();
+    }
 
 }

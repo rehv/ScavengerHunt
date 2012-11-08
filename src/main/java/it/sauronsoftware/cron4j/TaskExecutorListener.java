@@ -19,8 +19,7 @@
 package it.sauronsoftware.cron4j;
 
 /**
- * A TaskExecutorListener is notified with events from a {@link TaskExecutor}. You can add listeners to a TaskExecutor by calling its
- * {@link TaskExecutor#addTaskExecutorListener(TaskExecutorListener)} method.
+ * A TaskExecutorListener is notified with events from a {@link TaskExecutor}. You can add listeners to a TaskExecutor by calling its {@link TaskExecutor#addTaskExecutorListener(TaskExecutorListener)} method.
  * 
  * @see TaskExecutor
  * @author Carlo Pelliccia
@@ -28,58 +27,58 @@ package it.sauronsoftware.cron4j;
  */
 public interface TaskExecutorListener {
 
-	/**
-	 * Called when the execution has been requested to be paused.
-	 * 
-	 * @param executor
-	 *            The source executor.
-	 */
-	public void executionPausing(TaskExecutor executor);
+    /**
+     * Called when the execution has been requested to be paused.
+     * 
+     * @param executor
+     *            The source executor.
+     */
+    public void executionPausing(TaskExecutor executor);
 
-	/**
-	 * Called when the execution has been requested to be resumed.
-	 * 
-	 * @param executor
-	 *            The source executor.
-	 */
-	public void executionResuming(TaskExecutor executor);
+    /**
+     * Called when the execution has been requested to be resumed.
+     * 
+     * @param executor
+     *            The source executor.
+     */
+    public void executionResuming(TaskExecutor executor);
 
-	/**
-	 * Called when the executor has been requested to be stopped.
-	 * 
-	 * @param executor
-	 *            The source executor.
-	 */
-	public void executionStopping(TaskExecutor executor);
+    /**
+     * Called when the executor has been requested to be stopped.
+     * 
+     * @param executor
+     *            The source executor.
+     */
+    public void executionStopping(TaskExecutor executor);
 
-	/**
-	 * Called at execution end. If the execution has failed due to an error, the encountered exception is reported.
-	 * 
-	 * @param executor
-	 *            The source executor.
-	 * @param exception
-	 *            If the execution has been terminated due to an error, this is the encountered exception; otherwise the parameter is null.
-	 */
-	public void executionTerminated(TaskExecutor executor, Throwable exception);
+    /**
+     * Called at execution end. If the execution has failed due to an error, the encountered exception is reported.
+     * 
+     * @param executor
+     *            The source executor.
+     * @param exception
+     *            If the execution has been terminated due to an error, this is the encountered exception; otherwise the parameter is null.
+     */
+    public void executionTerminated(TaskExecutor executor, Throwable exception);
 
-	/**
-	 * Called every time the execution status message changes.
-	 * 
-	 * @param executor
-	 *            The source executor.
-	 * @param statusMessage
-	 *            The new status message.
-	 */
-	public void statusMessageChanged(TaskExecutor executor, String statusMessage);
+    /**
+     * Called every time the execution status message changes.
+     * 
+     * @param executor
+     *            The source executor.
+     * @param statusMessage
+     *            The new status message.
+     */
+    public void statusMessageChanged(TaskExecutor executor, String statusMessage);
 
-	/**
-	 * Called every time the execution completeness value changes.
-	 * 
-	 * @param executor
-	 *            The source executor.
-	 * @param completenessValue
-	 *            The new completeness value.
-	 */
-	public void completenessValueChanged(TaskExecutor executor, double completenessValue);
+    /**
+     * Called every time the execution completeness value changes.
+     * 
+     * @param executor
+     *            The source executor.
+     * @param completenessValue
+     *            The new completeness value.
+     */
+    public void completenessValueChanged(TaskExecutor executor, double completenessValue);
 
 }

@@ -10,7 +10,6 @@
 * Add option to reward differently based on player placing
 * Major code overhaul (write pre-existing ideas from scratch, change package, fix attribute and method protection)
 * Add reward probabilities
-* Check impact of savePlayer method being ran for every mob killed
 
 ## 1.7.2
 * Do something about tools/armor/weapons requiring 100% durability to count toward objectives

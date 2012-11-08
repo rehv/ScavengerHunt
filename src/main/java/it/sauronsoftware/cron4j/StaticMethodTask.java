@@ -29,67 +29,67 @@ import java.lang.reflect.Modifier;
  */
 class StaticMethodTask extends Task {
 
-	/**
-	 * The Java class name.
-	 */
-	private String className;
+    /**
+     * The Java class name.
+     */
+    private String className;
 
-	/**
-	 * The name of the static method of the class that has to be launched.
-	 */
-	private String methodName;
+    /**
+     * The name of the static method of the class that has to be launched.
+     */
+    private String methodName;
 
-	/**
-	 * Arguments for the static method. The array can be empty, but it can't be null.
-	 */
-	private String[] args;
+    /**
+     * Arguments for the static method. The array can be empty, but it can't be null.
+     */
+    private String[] args;
 
-	/**
-	 * Builds the task.
-	 * 
-	 * @param className
-	 *            The Java class name.
-	 * @param methodName
-	 *            The name of the static method of the class that has to be launched.
-	 * @param args
-	 *            Arguments for the static method. The array can be empty, but it can't be null.
-	 */
-	public StaticMethodTask(String className, String methodName, String[] args) {
-		this.className = className;
-		this.methodName = methodName;
-		this.args = args;
-	}
+    /**
+     * Builds the task.
+     * 
+     * @param className
+     *            The Java class name.
+     * @param methodName
+     *            The name of the static method of the class that has to be launched.
+     * @param args
+     *            Arguments for the static method. The array can be empty, but it can't be null.
+     */
+    public StaticMethodTask(String className, String methodName, String[] args) {
+        this.className = className;
+        this.methodName = methodName;
+        this.args = args;
+    }
 
-	/**
-	 * Implements {@link Task#execute(TaskExecutionContext)}. It uses Java reflection to load the given class and call the given static method with
-	 * the supplied arguments.
-	 */
-	public void execute(TaskExecutionContext context) throws RuntimeException {
-		// Loads the class.
-		Class classObject;
-		try {
-			classObject = Class.forName(className);
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Cannot load class " + className, e);
-		}
-		// Finds the method.
-		Method methodObject;
-		try {
-			Class[] argTypes = new Class[] { String[].class };
-			methodObject = classObject.getMethod(methodName, argTypes);
-		} catch (NoSuchMethodException e) {
-			throw new RuntimeException("Cannot find a " + methodName + "(String[]) method in class " + className, e);
-		}
-		int modifiers = methodObject.getModifiers();
-		if (!Modifier.isStatic(modifiers)) {
-			throw new RuntimeException("The method " + methodName + "(String[]) of the class " + className + " is not static");
-		}
-		// Invokes the method.
-		try {
-			methodObject.invoke(null, new Object[] { args });
-		} catch (Exception e) {
-			throw new RuntimeException("Failed to invoke the static method " + methodName + "(String[]) of the class " + className);
-		}
-	}
+    /**
+     * Implements {@link Task#execute(TaskExecutionContext)}. It uses Java reflection to load the given class and call the given static method with
+     * the supplied arguments.
+     */
+    public void execute(TaskExecutionContext context) throws RuntimeException {
+        // Loads the class.
+        Class classObject;
+        try {
+            classObject = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Cannot load class " + className, e);
+        }
+        // Finds the method.
+        Method methodObject;
+        try {
+            Class[] argTypes = new Class[] { String[].class };
+            methodObject = classObject.getMethod(methodName, argTypes);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException("Cannot find a " + methodName + "(String[]) method in class " + className, e);
+        }
+        int modifiers = methodObject.getModifiers();
+        if (!Modifier.isStatic(modifiers)) {
+            throw new RuntimeException("The method " + methodName + "(String[]) of the class " + className + " is not static");
+        }
+        // Invokes the method.
+        try {
+            methodObject.invoke(null, new Object[] { args });
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to invoke the static method " + methodName + "(String[]) of the class " + className);
+        }
+    }
 
 }

@@ -40,16 +40,16 @@ package it.sauronsoftware.cron4j;
  */
 public class SchedulingPatternValidator {
 
-	/**
-	 * Validates a string as a scheduling pattern.
-	 * 
-	 * @param schedulingPattern
-	 *            The pattern to validate.
-	 * @return true if the given string represents a valid scheduling pattern; false otherwise.
-	 * @deprecated Use {@link SchedulingPattern#validate(String)}.
-	 */
-	public static boolean validate(String schedulingPattern) {
-		return SchedulingPattern.validate(schedulingPattern);
-	}
+    /**
+     * Validates a string as a scheduling pattern.
+     * 
+     * @param schedulingPattern
+     *            The pattern to validate.
+     * @return true if the given string represents a valid scheduling pattern; false otherwise.
+     * @deprecated Use {@link SchedulingPattern#validate(String)}.
+     */
+    public static boolean validate(String schedulingPattern) {
+        return SchedulingPattern.validate(schedulingPattern);
+    }
 
 }

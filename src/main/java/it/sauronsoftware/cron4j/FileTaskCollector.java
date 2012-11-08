@@ -32,68 +32,68 @@ import java.util.ArrayList;
  */
 class FileTaskCollector implements TaskCollector {
 
-	/**
-	 * File list.
-	 */
-	private ArrayList files = new ArrayList();
+    /**
+     * File list.
+     */
+    private ArrayList files = new ArrayList();
 
-	/**
-	 * Adds a file.
-	 * 
-	 * @param file
-	 *            The file.
-	 */
-	public synchronized void addFile(File file) {
-		files.add(file);
-	}
+    /**
+     * Adds a file.
+     * 
+     * @param file
+     *            The file.
+     */
+    public synchronized void addFile(File file) {
+        files.add(file);
+    }
 
-	/**
-	 * Removes a file.
-	 * 
-	 * @param file
-	 *            The file.
-	 */
-	public synchronized void removeFile(File file) {
-		files.remove(file);
-	}
+    /**
+     * Removes a file.
+     * 
+     * @param file
+     *            The file.
+     */
+    public synchronized void removeFile(File file) {
+        files.remove(file);
+    }
 
-	/**
-	 * Returns the file list.
-	 * 
-	 * @return The file list.
-	 */
-	public synchronized File[] getFiles() {
-		int size = files.size();
-		File[] ret = new File[size];
-		for (int i = 0; i < size; i++) {
-			ret[i] = (File) files.get(i);
-		}
-		return ret;
-	}
+    /**
+     * Returns the file list.
+     * 
+     * @return The file list.
+     */
+    public synchronized File[] getFiles() {
+        int size = files.size();
+        File[] ret = new File[size];
+        for (int i = 0; i < size; i++) {
+            ret[i] = (File) files.get(i);
+        }
+        return ret;
+    }
 
-	/**
-	 * Implements {@link TaskCollector#getTasks()}.
-	 */
-	public synchronized TaskTable getTasks() {
-		TaskTable ret = new TaskTable();
-		int size = files.size();
-		for (int i = 0; i < size; i++) {
-			File f = (File) files.get(i);
-			TaskTable aux = null;
-			try {
-				aux = CronParser.parse(f);
-			} catch (IOException e) {
-				Exception e1 = new Exception("Cannot parse cron file: " + f.getAbsolutePath(), e);
-				e1.printStackTrace();
-			}
-			if (aux != null) {
-				int auxSize = aux.size();
-				for (int j = 0; j < auxSize; j++) {
-					ret.add(aux.getSchedulingPattern(j), aux.getTask(j));
-				}
-			}
-		}
-		return ret;
-	}
+    /**
+     * Implements {@link TaskCollector#getTasks()}.
+     */
+    public synchronized TaskTable getTasks() {
+        TaskTable ret = new TaskTable();
+        int size = files.size();
+        for (int i = 0; i < size; i++) {
+            File f = (File) files.get(i);
+            TaskTable aux = null;
+            try {
+                aux = CronParser.parse(f);
+            } catch (IOException e) {
+                Exception e1 = new Exception("Cannot parse cron file: " + f.getAbsolutePath(), e);
+                e1.printStackTrace();
+            }
+            if (aux != null) {
+                int auxSize = aux.size();
+                for (int j = 0; j < auxSize; j++) {
+                    ret.add(aux.getSchedulingPattern(j), aux.getTask(j));
+                }
+            }
+        }
+        return ret;
+    }
 
 }
