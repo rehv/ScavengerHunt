@@ -137,7 +137,6 @@ public class ScavengerHunt extends JavaPlugin {
 
 					@Override
 					public void run() {
-						stopScavengerEvent();
 						runScavengerEvent();
 					}
 				});
@@ -261,9 +260,6 @@ public class ScavengerHunt extends JavaPlugin {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("scavengerstart")) {
 			if (sender.hasPermission("scavengerhunt.start")) {
-				if (isRunning) {
-					stopScavengerEvent();
-				}
 				runScavengerEvent();
 			}
 		} else if (cmd.getName().equalsIgnoreCase("scavengerstop")) {
@@ -347,6 +343,9 @@ public class ScavengerHunt extends JavaPlugin {
 	}
 
 	public void runScavengerEvent() {
+		if (isRunning) {
+			stopScavengerEvent();
+		}
 		currentItems.clear();
 		playerMobs.clear();
 		currentMobs.clear();

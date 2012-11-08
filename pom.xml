@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ScavengerHunt</groupId>
   <artifactId>ScavengerHunt</artifactId>
-  <version>1.7.1-SNAPSHOT</version>
+  <version>1.7.2-SNAPSHOT</version>
   <name>ScavengerHunt</name>
   <description>Fun scavenger event plugin for Minecraft </description>
   <packaging>jar</packaging>

@@ -15,11 +15,21 @@ public class ExperienceUtils {
 	private static final int xpRequiredForNextLevel[] = new int[MAX_LEVEL_SUPPORTED];
 	private static final int xpTotalToReachLevel[] = new int[MAX_LEVEL_SUPPORTED];
 
-	// Note by Rehv: The formula was wrong for later levels, corrected to match the client
 	static {
+		xpTotalToReachLevel[0] = 0;
 		for (int i = 0; i < xpTotalToReachLevel.length; i++) {
-			xpRequiredForNextLevel[i] = (int) Math.ceil(3.5 * i + 6.75);
-			xpTotalToReachLevel[i] = (int) Math.ceil(1.75 * i * i + 5 * i);
+			if (i < 15) {
+				xpRequiredForNextLevel[i] = 17;
+				xpTotalToReachLevel[i+1] = 17 * (i+1); 
+			}
+			else if (i < 30) {
+				xpRequiredForNextLevel[i] = (int) Math.ceil(3 * i - 28);
+				xpTotalToReachLevel[i+1] = (int) Math.ceil(1.5 * (i+1) * (i+1) - 29.5 * (i+1) + 360);
+			}
+			else {
+				xpRequiredForNextLevel[i] = (int) Math.ceil(7 * i - 148);
+				xpTotalToReachLevel[i+1] = (int) Math.ceil(3.5 * (i+1) * (i+1) - 151.5 * (i+1) + 2220);
+			}
 		}
 	}
 
