@@ -75,7 +75,7 @@ public class ScavengerSaver {
     }
 
     protected static boolean loadPlayer(Player p) {
-        File playerData = new File(plugin.getDataFolder(), "savedData" + File.pathSeparator + p.getDisplayName() + ".yml");
+        File playerData = new File(plugin.getDataFolder(), "savedData"+ File.separator + p.getDisplayName() + ".yml");
         FileConfiguration config = new YamlConfiguration();
 
         try {

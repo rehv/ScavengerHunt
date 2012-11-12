@@ -34,7 +34,7 @@ public class ScavengerHunt extends JavaPlugin {
     public int duration = 0;
     public long end = 0;
 
-    public boolean isRunning, usingScheduler, shortMessages, riddleMode, removeItems, enableMetrics;
+    public boolean isRunning, usingScheduler, shortMessages, riddleMode, removeItems, usingProbability, enableMetrics;
 
     public double moneyReward = 0;
     public double moneyBackup = 0;
@@ -45,7 +45,7 @@ public class ScavengerHunt extends JavaPlugin {
 
     public List<ItemStack> items = new ArrayList<ItemStack>();
     public Map<EntityType, Integer> mobs = new HashMap<EntityType, Integer>();
-    public List<ItemStack> rewards = new ArrayList<ItemStack>();
+    public Map<ItemStack, Integer> rewards = new HashMap<ItemStack, Integer>();
 
     public List<ItemStack> currentItems = new ArrayList<ItemStack>();
     public Map<EntityType, Integer> currentMobs = new HashMap<EntityType, Integer>();
@@ -231,9 +231,10 @@ public class ScavengerHunt extends JavaPlugin {
         if (config.isList("rewards")) {
             for (Object i : config.getList("rewards", new ArrayList<String>())) {
                 if (i instanceof String) {
-                    ItemStack result = ItemUtils.parseItem(i.toString());
+                    String[] parts = ItemUtils.getProbability(i.toString());
+                    ItemStack result = ItemUtils.parseItem(parts[0]);
                     if (result != null) {
-                        rewards.add(result);
+                        rewards.put(result, Integer.parseInt(parts[1]));
                     }
                 } else {
                     return false;
@@ -246,6 +247,11 @@ public class ScavengerHunt extends JavaPlugin {
             removeItems = config.getBoolean("removeItems");
         } else {
             removeItems = false;
+        }
+        if (config.isBoolean("useProbability")) {
+            usingProbability = config.getBoolean("useProbability");
+        } else {
+            usingProbability = false;
         }
         if (config.isBoolean("enableMetrics")) {
             enableMetrics = config.getBoolean("enableMetrics");
@@ -416,16 +422,38 @@ public class ScavengerHunt extends JavaPlugin {
         }
 
         List<ItemStack> rewardClone = new ArrayList<ItemStack>();
-        for (ItemStack i : rewards) {
+        for (ItemStack i : rewards.keySet()) {
             rewardClone.add(i);
         }
-        if (numOfRewards <= 0) {
+        if (numOfRewards <= 0 && globalNumOfRewards <= 0) {
             currentRewards = rewardClone;
-        } else {
-            for (int i = 0; i < numOfRewards && !rewardClone.isEmpty(); i++) {
-                currentRewards.add(rewardClone.remove(r.nextInt(rewardClone.size())));
+        }
+        if (usingProbability) {
+            rewardClone = ItemUtils.setupProbabilities(rewards);
+            ItemUtils.displayProbabilities(this, rewards);
+            if (numOfRewards > 0) {
+                for (int i = 0; i < numOfRewards && !rewardClone.isEmpty(); i++) {
+                    List<ItemStack> collection = new ArrayList<ItemStack>();
+                    ItemStack item = rewardClone.remove(r.nextInt(rewardClone.size()));
+                    for (int j = 0; j < rewardClone.size();j++) {
+                        if (rewardClone.get(j).equals(item)) {
+                            collection.add(item);
+                        }
+                    }
+                    currentRewards.add(item);
+                    rewardClone.removeAll(collection);
+                }
             }
         }
+        else {
+            if (numOfRewards > 0) {
+                for (int i = 0; i < numOfRewards && !rewardClone.isEmpty(); i++) {
+                    currentRewards.add(rewardClone.remove(r.nextInt(rewardClone.size())));
+                }
+            }
+        }
+        // used indirectly to "free" the memory of a potentially big list
+        rewardClone = new ArrayList<ItemStack>();
 
         if (numOfItems == 0 && numOfMobs == 0) {
             messager.sendAll(ChatColor.DARK_RED + "Scavenger hunt free mode! Everyone gets the rewards!");

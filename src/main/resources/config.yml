@@ -38,13 +38,20 @@ itemRiddles:
   - "2. For example, for 10 of an item, you might want to put (10) at the end"
 
 #Put riddles for MOBS here, if riddleMode enabled. Note that if quantity is important, 
-# that you specify that in the riddle (see riddle 2 in default config).
+# that you specify that in the riddle.
 mobRiddles:
   - "1. If you give me a carrot, we can ride together real fast!"
-  
-# ID - Amount - Data Value
+
+# Reward listing usage as follows
+# ID Amount DataValue Enchant:Level;Enchant:Level=Probability(1-100)
+# Example: - 276 1 16:5;21:3=50 will add 1 Diamond Sword with Sharpness V and Looting III,
+# with probability weight of 50. The probability of the item depends on the sum of
+# all the weights. Defaults to 100 if not set. 
 rewards:
   - 357 1
+
+#Use reward weighted probability?
+useProbability: false
 
 # Number of rewards for random item selection ; 0 to disable
 # X number of items will be selected from the items listed above

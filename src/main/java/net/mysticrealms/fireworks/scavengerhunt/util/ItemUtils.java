@@ -1,5 +1,20 @@
 package net.mysticrealms.fireworks.scavengerhunt.util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import net.mysticrealms.fireworks.scavengerhunt.ScavengerHunt;
+
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
@@ -49,5 +64,66 @@ public class ItemUtils {
             }
         }
         return result;
+    }
+
+    // debug
+    public static void displayProbabilities(ScavengerHunt plugin, Map<ItemStack, Integer> rewards) {
+        int totalWeight = weightTotals(rewards);
+        final Charset encoding = StandardCharsets.UTF_8;
+        List<String> lines = new ArrayList<String>();
+        File debug = new File(plugin.getDataFolder(), "probabilities.txt");
+        lines.add(String.format("%-20s %4s %4s %7s%n", "ITEM_TYPE", "ID", "DV", "%"));
+        for (ItemStack i : rewards.keySet()) {
+            lines.add(String.format("%-20s %4s %4s %3.3f%%%n", i.getType(), i.getTypeId(), i.getDurability(), ((float) rewards.get(i) / totalWeight) * 100));
+        }
+        Writer out;
+        try {
+            out = new OutputStreamWriter(new FileOutputStream(debug), encoding);
+            for (String str : lines) {
+                out.write(str);
+            }
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // it's here for possible future displays of the Logger class
+    public static int weightTotals(Map<ItemStack, Integer> rewards) {
+        int totalWeight = 0;
+
+        for (int i : rewards.values()) {
+            totalWeight += i;
+        }
+
+        return totalWeight;
+    }
+
+    public static String[] getProbability(String i) {
+        String[] parts = ((String) i).split("=");
+
+        if (parts.length != 2) {
+            parts = new String[2];
+            parts[0] = i;
+            parts[1] = "100";
+        }
+
+        return parts;
+    }
+
+    public static List<ItemStack> setupProbabilities(Map<ItemStack, Integer> rewards) {
+        List<ItemStack> rewardClone = new ArrayList<ItemStack>();
+
+        for (ItemStack i : rewards.keySet()) {
+            for (int j = 0; j < rewards.get(i); j++) {
+                rewardClone.add(i);
+            }
+        }
+        Collections.shuffle(rewardClone);
+
+        return rewardClone;
     }
 }

@@ -22,7 +22,7 @@ public class NameRetriever {
 
     public static void setPotionMap() {
         String formatter = "Potion of ";
-        
+
         // base potions
         potionMap.put((short) 0, "Water Bottle");
         potionMap.put((short) 16, "Awkward Potion");

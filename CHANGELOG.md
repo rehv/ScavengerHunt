@@ -1,13 +1,12 @@
 # ScavengerHunt plugin changelog summary
 
 ##1.7.2
-<<<<<<< HEAD
 * Moved all (or almost all) sendMessage methods to messager class
 * For the sake of future updates, savePlayer will still be called on every EntityDeath event
 * Started planning player placing on events
-=======
-* Moved all (or almost all) sendMessage methods to messager class.
->>>>>>> refs/remotes/origin/master
+* Added reward probabilities (more on config.yml)
+* Fixed ScavengerSaver not using the correct separator
+* Started work on Logger class
 
 ##1.7.1
 * Added optional globalNumOfRewards, which will select rewards disregarding their type. 0 to disable
