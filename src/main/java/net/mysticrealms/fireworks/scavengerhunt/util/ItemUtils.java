@@ -72,7 +72,7 @@ public class ItemUtils {
         final Charset encoding = StandardCharsets.UTF_8;
         List<String> lines = new ArrayList<String>();
         File debug = new File(plugin.getDataFolder(), "probabilities.txt");
-        lines.add(String.format("%-20s %4s %4s %7s%n", "ITEM_TYPE", "ID", "DV", "%"));
+        lines.add(String.format("%-20s %4s %4s %4s%n", "ITEM_TYPE", "ID", "DV", "%"));
         for (ItemStack i : rewards.keySet()) {
             lines.add(String.format("%-20s %4s %4s %3.3f%%%n", i.getType(), i.getTypeId(), i.getDurability(), ((float) rewards.get(i) / totalWeight) * 100));
         }

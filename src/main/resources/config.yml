@@ -46,7 +46,8 @@ mobRiddles:
 # ID Amount DataValue Enchant:Level;Enchant:Level=Probability(1-100)
 # Example: - 276 1 16:5;21:3=50 will add 1 Diamond Sword with Sharpness V and Looting III,
 # with probability weight of 50. The probability of the item depends on the sum of
-# all the weights. Defaults to 100 if not set. 
+# all the weights. Defaults to 100 if not set. You may set it above 100, but setting it
+# to 0 or less is the same as denying the item.
 rewards:
   - 357 1
 
